@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getTemplate } from './api/Api';
 import TemplateComponent from './helper/TemplateComponent';
 import axios from 'axios';
+import './app.css';
 
+const domain = 'http://localhost:1337'
 
 function App({ name, nameTwo, templateId, contentId }) {
     
@@ -18,7 +20,7 @@ function App({ name, nameTwo, templateId, contentId }) {
     const dataNameTwo = JSON.parse(decodeURIComponent(nameTwo))[0];
 
     if (!templateId) {
-        templateId = '1002';
+        templateId = '9';
     }
 
     if (!contentId) {
@@ -28,7 +30,7 @@ function App({ name, nameTwo, templateId, contentId }) {
 
 
     const [css] = useState(
-        `#wrapper {
+        `#header {
           background:red;
           padding:10px;
         }`
@@ -53,11 +55,16 @@ function App({ name, nameTwo, templateId, contentId }) {
     useEffect(() => {
         (async () => {
             const { data } = await getTemplate('code', templateId);
-            const { data: strapiData } = await axios.get('http://localhost:1337/api/projects');
+            const { data: strapiData } = await axios.get(`${domain}/api/projects?populate=img`);
+            console.log('core Data', strapiData.data);
             console.log("STRAPIDATA", strapiData.data[0].attributes);
+            console.log('just for now', data);
             const hbr = `${data[0].contentshape}`;
+            console.log("HBR",hbr)
             setHtml(hbr);
-            setData(strapiData.data[0].attributes)
+            const imgPath = `${domain}${strapiData.data[0].attributes.img.data.attributes.url}`;
+            console.log(domain+strapiData.data[0].attributes.img.data.attributes.url)
+            setData({content: {...strapiData.data[0].attributes, img: imgPath}})
         })()
     }, [])
 
@@ -67,7 +74,7 @@ function App({ name, nameTwo, templateId, contentId }) {
                 <TemplateComponent css={css} template={html} data={data} />
             </div>
             <hr></hr>
-            <table style={{ backgroundColor: "#FFFFCC", borderCollapse: "collapse", border: "1px solid #FFCC00", color: "#000000", width: "100%", padding: "10px" }} cellpadding="3" cellspacing="3" className="table table-bordered table-datatable table-hover table-striped Contents__table-element">
+            <table style={{ backgroundColor: "#FFFFCC", borderCollapse: "collapse", border: "1px solid #FFCC00", color: "#000000", width: "100%", padding: "10px" }} cellPadding="3" cellSpacing="3" className="table table-bordered table-datatable table-hover table-striped Contents__table-element">
                 <thead>
                     <tr>
                         {Object.keys(dataNameTwo).map((item, idx) => <th key={idx}>{item}</th>)}
