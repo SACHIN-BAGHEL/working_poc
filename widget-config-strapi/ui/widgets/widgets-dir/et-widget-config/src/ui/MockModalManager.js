@@ -62,7 +62,6 @@ export default class MockModalManager extends Component {
                         el.attributes.id = el.id
                         return el.attributes
                     })
-
                     this.setState({ mockRows: arr });
                 });
             }
@@ -76,6 +75,7 @@ export default class MockModalManager extends Component {
         return (
             <>
                 <button
+                    style={{ marginBottom: "1rem" }}
                     type="submit"
                     value="Submit"
                     className="btn btn-primary pull-right" onClick={this.open}>
@@ -150,7 +150,7 @@ export default class MockModalManager extends Component {
                             Cancel
                         </Button>
                         <Button bsStyle="primary" onClick={this.close}>
-                            Save
+                            Choose
                         </Button>
                     </Modal.Footer>
                 </Modal>

@@ -1,41 +1,86 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { getTemplate } from './api/Api';
+import TemplateComponent from './helper/TemplateComponent';
+import axios from 'axios';
 
-function App({name, nameTwo}) {
-    if (!nameTwo)
-        nameTwo = '[{"name":"customer 1","email":"customer1@entando.com","address":"San Jose, CA","createdAt":"2022-03-14T18:41:51.579Z","updatedAt":"2022-03-14T18:49:55.562Z","publishedAt":"2022-03-14T18:49:55.559Z","id":1,"selected":true}]'
+
+function App({ name, nameTwo, templateId, contentId }) {
+    
+    console.log('NAME, NAMETWO, TEMPLATEID, CONTENTID -1', name, nameTwo, templateId, contentId);
+    if (!name) {
+        name = 'test data transfer';
+    }
+
+    if (!nameTwo) {
+        nameTwo = nameTwo = '[{"name":"customer 1","email":"customer1@entando.com","address":"San Jose, CA","createdAt":"2022-03-14T18:41:51.579Z","updatedAt":"2022-03-14T18:49:55.562Z","publishedAt":"2022-03-14T18:49:55.559Z","id":1,"selected":true}]';
+    }
     const nameTwoArr = JSON.parse(decodeURIComponent(nameTwo));
-    const data = JSON.parse(decodeURIComponent(nameTwo))[0];
-    // data = data[0];
-    console.log('received ', data);
-    data.hasOwnProperty('name')
-    data.hasOwnProperty('email')
-    data.hasOwnProperty('address')
+    const dataNameTwo = JSON.parse(decodeURIComponent(nameTwo))[0];
+
+    if (!templateId) {
+        templateId = '1002';
+    }
+
+    if (!contentId) {
+        contentId = 'test contentId';
+    }
+    console.log('NAME, NAMETWO, TEMPLATEID, CONTENTID static data - ', name, nameTwo, templateId, contentId);
+
+
+    const [css] = useState(
+        `#wrapper {
+          background:red;
+          padding:10px;
+        }`
+    ); // compiled scss
+
+    const [html, setHtml] = useState(`
+      <div id="wrapper">
+        <h1 class="title">{{name}}</h1>
+      </div>
+      `); // template
+
+    const [data, setData] = useState({
+        name: "Static",
+        bold: function () {
+            return function (text, render) {
+                return;
+            };
+        },
+        bannerType: "wideBanner"
+    })
+
+    useEffect(() => {
+        (async () => {
+            const { data } = await getTemplate('code', templateId);
+            const { data: strapiData } = await axios.get('http://localhost:1337/api/projects');
+            console.log("STRAPIDATA", strapiData.data[0].attributes);
+            const hbr = `${data[0].contentshape}`;
+            setHtml(hbr);
+            setData(strapiData.data[0].attributes)
+        })()
+    }, [])
 
     return (
         <>
             <div>
-                <header>
-                    <p>
-                        Hello, {name}!
-                    </p>
-                </header>
+                <TemplateComponent css={css} template={html} data={data} />
             </div>
             <hr></hr>
-            <table style={{ backgroundColor: "#FFFFCC", borderCollapse: "collapse", border: "1px solid #FFCC00", color: "#000000", width: "100%" }} cellpadding="3" cellspacing="3" className="table table-bordered table-datatable table-hover table-striped Contents__table-element">
+            <table style={{ backgroundColor: "#FFFFCC", borderCollapse: "collapse", border: "1px solid #FFCC00", color: "#000000", width: "100%", padding: "10px" }} cellpadding="3" cellspacing="3" className="table table-bordered table-datatable table-hover table-striped Contents__table-element">
                 <thead>
                     <tr>
-                        {Object.keys(data).map((item, idx) => <th key={idx}>{item}</th>)}
+                        {Object.keys(dataNameTwo).map((item, idx) => <th key={idx}>{item}</th>)}
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        {Object.keys(data) && Object.keys(data).map((item, idx) => {
-                            if (data.hasOwnProperty(item)) return <td key={idx}>{data[item]}</td>
+                        {Object.keys(dataNameTwo) && Object.keys(dataNameTwo).map((item, idx) => {
+                            if (dataNameTwo.hasOwnProperty(item)) return <td key={idx}>{dataNameTwo[item]}</td>
                         })}
                     </tr>
                 </tbody>
             </table>
-
             <hr></hr>
             {
                 nameTwoArr && nameTwoArr.map(el => {

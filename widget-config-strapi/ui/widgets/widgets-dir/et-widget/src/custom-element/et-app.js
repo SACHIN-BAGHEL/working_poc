@@ -2,11 +2,11 @@ import ReactDOM from "react-dom"
 import React from "react"
 import App from '../App'
 
-
-
 const ATTRIBUTES = {
     name: 'name',
     nameTwo: 'nameTwo',
+    selectedTemplateId: 'selectedTemplateId',
+    selectedContentId: 'selectedContentId'
 };
 
 class WidgetElement extends HTMLElement {
@@ -33,7 +33,9 @@ class WidgetElement extends HTMLElement {
     render() {
         const name = this.getAttribute(ATTRIBUTES.name);
         const nameTwo = this.getAttribute(ATTRIBUTES.nameTwo);
-        ReactDOM.render(<App name={name} nameTwo={nameTwo}/>, this.mountPoint);
+        const templateId = this.getAttribute(ATTRIBUTES.selectedTemplateId);
+        const contentId = this.getAttribute(ATTRIBUTES.selectedContentId);
+        ReactDOM.render(<App name={name} nameTwo={nameTwo} templateId={templateId} contentId={contentId} />, this.mountPoint);
     }
 }
 

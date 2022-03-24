@@ -37,3 +37,8 @@ export const filterContentsByName = async (collectionType, contentName) => {
 
     return await axios.get(url)
 }
+
+// API GET COLLECTION TYPE FROM TEMPLATES
+export const getTemplate = async (token) => {
+    return await axios.get(`http://localhost:8082/api/getcollectiontype`);
+}
