@@ -38,7 +38,7 @@ function App({ name, nameTwo, templateId, contentId }) {
 
     const [html, setHtml] = useState(`
       <div id="wrapper">
-        <h1 class="title">{{name}}</h1>
+        <h1 className="title">{{name}}</h1>
       </div>
       `); // template
 

@@ -28,10 +28,10 @@ export class SimpleTable extends React.Component {
 
 
 const contentAttribute = {
-    name: "Name",
-    createdBy: "Createdby",
-    updatedAt: "Lastedited",
-    Type: "Type",
-    createdAt: "Createddate",
-    selected: "status"
+    Title: "Name",
+    createdAt: "Created by",
+    updatedAt: "Last edited",
+    type: "Type",
+    createdAt: "Created date",
+    selected: "Status"
 }

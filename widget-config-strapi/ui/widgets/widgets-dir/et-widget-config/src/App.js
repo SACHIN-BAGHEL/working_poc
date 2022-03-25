@@ -73,7 +73,7 @@ class App extends Component {
                 <SimpleTable content={this.state.selectedContent} />
                 {this.state.selectedContentId != 0 &&
                     <div style={{ marginTop: "1rem" }}>
-                        <select name="modelId" class="form-control" onChange={this.onChangeTemplateId}>
+                        <select name="modelId" className="form-control" onChange={this.onChangeTemplateId}>
                             <option value="default">Default
                             </option>
                             {this.state.contentType.map(el => {

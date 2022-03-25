@@ -57,11 +57,12 @@ export default class MockModalManager extends Component {
                 this.setState({ selectedCollectionType: el.pluralName })
                 await fetchContents(el.pluralName).then(response => {
                     // console.log("HJEUK", response.data.data)
-
                     const arr = response.data.data.map(el => {
                         el.attributes.id = el.id
                         return el.attributes
                     })
+                    arr[0].type = el.singularName;
+                    arr[0].createdBy = 'Admin';
                     this.setState({ mockRows: arr });
                 });
             }
@@ -92,7 +93,7 @@ export default class MockModalManager extends Component {
                         >
                             <Icon type="pf" name="close" />
                         </button>
-                        <Modal.Title>Select Content</Modal.Title>
+                        <Modal.Title>Select one content item</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div
