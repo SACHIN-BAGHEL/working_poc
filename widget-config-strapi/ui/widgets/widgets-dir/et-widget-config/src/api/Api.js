@@ -1,7 +1,8 @@
 import axios from 'axios';
+const domain = 'http://localhost:1337'
 
 export const postLoginAdmin = async (data) => {
-    return axios.post(`http://localhost:1337/admin/login`, data);
+    return axios.post(`${domain}/admin/login`, data);
 }
 
 // GET Collection Type
@@ -23,7 +24,7 @@ export const getContents = async (collectionType) => {
 
 export const fetchContents = async (collectionType) => {
     console.log("fetchContents", collectionType)
-    // const url = `http://localhost:1337/api/${collectionType}`;
+    // const url = `${domain}/api/${collectionType}`;
     return await getContents(collectionType);
 }
 
@@ -33,7 +34,7 @@ export const filterContentsByName = async (collectionType, contentName) => {
         throw new Error('collectionType or contentName is missing');
     }
 
-    let url = `http://localhost:1337/api/${collectionType}?filters[title][$containsi]=${contentName}`
+    let url = `${domain}/api/${collectionType}?filters[Title][$containsi]=${contentName}`
 
     return await axios.get(url)
 }
