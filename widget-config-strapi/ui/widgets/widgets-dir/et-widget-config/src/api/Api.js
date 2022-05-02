@@ -6,7 +6,7 @@ export const postLoginAdmin = async (data) => {
 
 // GET Collection Type
 export const getCollectionTypes = async (token) => {
-    token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ3Mjc5NTA1LCJleHAiOjE2NDk4NzE1MDV9.qDiphqD-LOC6iXPfuIIMaS951f2jZG-z-rqgoqRIA6I'
+    token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUwOTY1ODU1LCJleHAiOjE2NTM1NTc4NTV9.JAwQ2tS16tJsyo8a8WKNA7nXGLRsOCDJeVXBHs-MwL8'
     const data = await axios.get(`http://localhost:1337/content-manager/content-types`, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -16,7 +16,7 @@ export const getCollectionTypes = async (token) => {
 }
 
 export const getContents = async (collectionType) => {
-    let url = 'http://localhost:1337/api/' + collectionType;
+    let url = 'http://localhost:1337/api/' + collectionType + '?populate=Image';
     const data = await axios.get(url);
     return data;
 }
@@ -33,7 +33,7 @@ export const filterContentsByName = async (collectionType, contentName) => {
         throw new Error('collectionType or contentName is missing');
     }
 
-    let url = `http://localhost:1337/api/${collectionType}?filters[name][$containsi]=${contentName}`
+    let url = `http://localhost:1337/api/${collectionType}?filters[title][$containsi]=${contentName}`
 
     return await axios.get(url)
 }

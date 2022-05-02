@@ -31,7 +31,7 @@ const contentAttribute = {
     Title: "Name",
     createdAt: "Created by",
     updatedAt: "Last edited",
-    type: "Type",
+    Type: "Type",
     createdAt: "Created date",
-    selected: "Status"
+    status: "Status"
 }

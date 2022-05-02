@@ -61,11 +61,13 @@ class App extends Component {
             contentTypeRefine.push({ label: element.info.pluralName })
         });
         let { data: templatesList } = await getTemplate();
+        // TODO: need to add filter template logic.
         console.log("TEMPLATESLIST", templatesList)
         this.setState({ contentType: templatesList, collectionTypes: templatesList })
     }
 
     render() {
+        console.log('XYZ',this.state.name)
         return (
             <div style={{ margin: "8rem" }}>
                 <MockModalManager rightSide={false} setSelectedContent={this.setSelectedContent} />
@@ -76,10 +78,10 @@ class App extends Component {
                         <select name="modelId" className="form-control" onChange={this.onChangeTemplateId}>
                             <option value="default">Default
                             </option>
-                            {this.state.contentType.map(el => {
-                                return (
-                                    <option value={el.code}>{el.collectiontype}</option>
-                                )
+                            {this.state.contentType.map((el, idx) => {
+                                if (el.collectiontype.toLowerCase() === this.state.name[0].Type.toLowerCase()) {
+                                    return <option key={idx} value={el.code}>{el.templatename}</option>;
+                                }
                             })}
                         </select>
                     </div>

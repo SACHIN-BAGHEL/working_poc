@@ -22,6 +22,8 @@ export default class MockModalManager extends Component {
         await filterContentsByName(this.state.selectedCollectionType, contentName).then(response => {
             const arr = response.data.data.map(el => {
                 el.attributes.id = el.id
+                el.attributes.createdBy = 'Admin';
+                el.attributes.status = 'Published';
                 return el.attributes
             })
             this.setState({ mockRows: arr });
@@ -59,10 +61,11 @@ export default class MockModalManager extends Component {
                     // console.log("HJEUK", response.data.data)
                     const arr = response.data.data.map(el => {
                         el.attributes.id = el.id
+                        el.attributes.createdBy = 'Admin';
+                        el.attributes.status = 'Published';
+                        // el.attributes.type = el.singularName;
                         return el.attributes
                     })
-                    arr[0].type = el.singularName;
-                    arr[0].createdBy = 'Admin';
                     this.setState({ mockRows: arr });
                 });
             }

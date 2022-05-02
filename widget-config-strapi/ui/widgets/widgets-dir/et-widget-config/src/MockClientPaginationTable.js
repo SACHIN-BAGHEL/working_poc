@@ -184,7 +184,7 @@ export class MockClientPaginationTable extends React.Component {
                     }
                 },
                 {
-                    property: 'name',
+                    property: 'Title',
                     displayName: 'Names',
                     header: {
                         label: 'Name',
@@ -205,7 +205,7 @@ export class MockClientPaginationTable extends React.Component {
                     }
                 },
                 {
-                    property: 'email',
+                    property: 'createdBy',
                     header: {
                         label: 'Created by',
                         props: {
@@ -245,7 +245,7 @@ export class MockClientPaginationTable extends React.Component {
                     }
                 },
                 {
-                    property: 'type',
+                    property: 'Type',
                     header: {
                         label: 'Type',
                         props: {
