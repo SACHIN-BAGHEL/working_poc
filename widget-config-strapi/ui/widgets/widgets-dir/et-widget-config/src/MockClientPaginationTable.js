@@ -499,8 +499,6 @@ export class MockClientPaginationTable extends React.Component {
         // IMP: Need to figure it out
         // const { selectedRows } = this.state;
         // IMP: For now remove later
-        console.log("ROW, ROWINDEX", row, rowIndex);
-        console.log("HAA this.props.setSelectedContent", this.props.selectedCollectionType);
         this.props.setSelectedContent([row], this.props.selectedCollectionType)
         // this.setState({ selectedContent: [row] });
         const selectedRows = mockRows

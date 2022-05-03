@@ -4,7 +4,7 @@ import { Col, Row } from 'patternfly-react/dist/js/components/Grid'
 import { Icon } from 'patternfly-react/dist/js/components/Icon'
 import { Modal } from 'patternfly-react/dist/js/components/Modal'
 // import { Modal } from 'patternfly-react';
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { fetchContents, filterContentsByName, getCollectionTypes } from '../api/Api'
 import { MockClientPaginationTable } from '../MockClientPaginationTable'
 import { TableBuilder } from '../helper/Helper'
@@ -44,7 +44,6 @@ export default class MockModalManager extends Component {
         contentTypes = contentTypes.data.data.filter(obj => {
             return obj && (obj.uid && obj.uid.startsWith("api::")) && obj.isDisplayed;
         });
-        // console.log(contentTypes)
         const contentTypeRefine = [];
         contentTypes.length && contentTypes.forEach(element => {
             contentTypeRefine.push(element.info)
@@ -58,7 +57,6 @@ export default class MockModalManager extends Component {
             if (el.singularName === e.target.value && e.target.value) {
                 this.setState({ selectedCollectionType: el.pluralName })
                 await fetchContents(el.pluralName).then(response => {
-                    // console.log("HJEUK", response.data.data)
                     const arr = response.data.data.map(el => {
                         el.attributes.id = el.id
                         el.attributes.createdBy = 'Admin';
@@ -69,23 +67,31 @@ export default class MockModalManager extends Component {
                     this.setState({ mockRows: arr });
                 });
             }
-            // console.log(el)
         })
     }
 
     render() {
         // TODO:
-        console.log("THIS.STATE.COLLECTIONTYPES",this.state)
         return (
-            <>
-                <button
-                    style={{ marginBottom: "1rem" }}
-                    type="submit"
-                    value="Submit"
-                    className="btn btn-primary pull-right" onClick={this.open}>
-                    Add existing content
-                </button>
-
+            <Fragment>
+                <div>
+                    {/* TODO: Add existing content need to beremoved later */}
+                {/* <div className="row" style={{marginLeft: "0px", marginRight: "0px"}}>
+                    <Col xs={6}>
+                        <h3 className="SingleContentConfigFormBody__contentTitle">
+                            Content: -
+                        </h3>
+                    </Col>
+                    <Col xs={6} className="SingleContentConfigFormBody__addButtons">
+                        <Button
+                            className="ChooseContentBody__add--existing app-tour-step-18"
+                            bsStyle="primary"
+                            onClick={this.open}
+                        >
+                            Add existing content
+                        </Button>
+                    </Col>
+                </div> */}
                 <Modal dialogClassName="ContentsFilterModal" show={this.state.show} onHide={this.close}>
                     <Modal.Header>
                         <button
@@ -109,7 +115,7 @@ export default class MockModalManager extends Component {
                             {/* {<span>{name}</span> || (
                                 <FormattedMessage id={nameId} defaultMessage="Info" />
                             )} */}
-                            
+
                         </div>
                         <Row>
                             <label className="control-label col-xs-3" htmlFor="group">
@@ -125,7 +131,6 @@ export default class MockModalManager extends Component {
                                     <option value={0}>Select Collection Type</option>
                                     {
                                         this.state.collectionTypes.length && this.state.collectionTypes.map((collectionType, idx) => {
-                                            // console.log(collectionType)
                                             return (
                                                 <option key={collectionType.singularName} value={collectionType.singularName}>{collectionType.pluralName}</option>
                                             )
@@ -134,8 +139,7 @@ export default class MockModalManager extends Component {
                                 </select>
                             </Col>
                         </Row>
-
-                        <ExpandCollapse runOnFilterData={this.runOnFilterData}/>
+                        <ExpandCollapse runOnFilterData={this.runOnFilterData} />
 
                         {/* </FormGroup> */}
                         <MockClientPaginationTable
@@ -143,14 +147,14 @@ export default class MockModalManager extends Component {
                             mockRows={this.state.mockRows}
                             selectedCollectionType={this.state.selectedCollectionType}
                             setSelectedContent={this.props.setSelectedContent}
-                        />
+                            />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button
                             bsStyle="default"
                             className="btn-cancel"
                             onClick={this.close}
-                        >
+                            >
                             Cancel
                         </Button>
                         <Button bsStyle="primary" onClick={this.close}>
@@ -158,7 +162,8 @@ export default class MockModalManager extends Component {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-            </>
+                            </div>
+            </Fragment>
         )
     }
 }
