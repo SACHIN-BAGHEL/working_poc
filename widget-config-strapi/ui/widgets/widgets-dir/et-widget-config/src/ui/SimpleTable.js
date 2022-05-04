@@ -48,17 +48,16 @@ export class SimpleTable extends React.Component {
                                             <td>{item.updatedAt}</td>
                                             <td>{item.publishedAt}</td>
                                             <td>
-                                                <Typeahead
-                                                    id="collectionTypeDropdown"
-                                                    placeholder={SELECT_COLLECTION_TYPE}
-                                                    options={this.state.templateType}
-                                                // onChange={this.handleCollectionTypeChange}
-                                                // selected={this.state.selectedCollectionType}
-                                                >
-                                                    {({ isMenuShown, toggleMenu }) => (
-                                                        this.renderToggleButton({ isMenuShown, onClick: toggleMenu })
-                                                    )}
-                                                </Typeahead>
+                                                <select name="modelId" className="form-control" onChange={this.onChangeTemplateId}>
+                                                    <option value="default">Default
+                                                    </option>
+                                                    {this.props.templateList.map((el) => {
+                                                        return <option key={el.id} value={el.id}>{el.templateName}</option>;    
+                                                        // if (el.collectionType.toLowerCase() === this.state.name[0].Type.toLowerCase()) {
+                                                        //     return <option key={el.id} value={el.id}>{el.templateName}</option>;
+                                                        // }
+                                                    })}
+                                                </select>
                                             </td>
                                         </tr>
                                     )

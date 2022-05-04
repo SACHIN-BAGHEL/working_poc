@@ -15,7 +15,6 @@ class App extends Component {
             selectedContent: [],
             name: null,
             nameTwo: null,
-            contentType: [],
             collectionTypes: [],
             selectedContentId: 0,
             selectedTemplateId: 'default'

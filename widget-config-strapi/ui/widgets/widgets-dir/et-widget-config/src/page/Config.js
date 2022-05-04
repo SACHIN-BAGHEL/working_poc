@@ -17,10 +17,10 @@ export default class Config extends Component {
             selectedContent: [],
             name: null,
             nameTwo: null,
-            contentType: [],
             collectionTypes: [],
             selectedContentId: 0,
-            selectedTemplateId: 'default'
+            selectedTemplateId: 'default',
+            templateList: []
         };
     }
 
@@ -37,7 +37,7 @@ export default class Config extends Component {
 
     handleTypeaheadChangeContentType = selected => {
         let selectedContentType = selected.map(option => option.label);
-        this.setState({ contentType: selectedContentType });
+        this.setState({ templateList: selectedContentType });
     };
 
     componentDidMount = async () => {
@@ -51,7 +51,7 @@ export default class Config extends Component {
         });
         let { data: templatesList } = await getTemplate();
         console.log('templatesList ======== ', templatesList);
-        this.setState({ contentType: templatesList, collectionTypes: templatesList })
+        this.setState({ templateList: templatesList, collectionTypes: templatesList })
     }
 
     render() {
@@ -92,21 +92,21 @@ export default class Config extends Component {
                                     <MockModalManager rightSide={false} setSelectedContent={this.setSelectedContent} />
                                 </div>
                                 <div style={{ marginTop: "1rem" }}></div>
-                                <SimpleTable content={this.state.selectedContent} selectedContent={this.props.selectedContent} />
-                                {
+                                <SimpleTable templateList={this.state.templateList} content={this.state.selectedContent} selectedContent={this.props.selectedContent} />
+                                {/* {
                                     this.state.selectedContentId != 0 &&
                                     <div style={{ marginTop: "1rem" }}>
                                         <select name="modelId" className="form-control" onChange={this.onChangeTemplateId}>
                                             <option value="default">Default
                                             </option>
-                                            {this.state.contentType.map((el, idx) => {
+                                            {this.state.templatesList.map((el, idx) => {
                                                 if (el.collectiontype.toLowerCase() === this.state.name[0].Type.toLowerCase()) {
                                                     return <option key={idx} value={el.code}>{el.templatename}</option>;
                                                 }
                                             })}
                                         </select>
                                     </div>
-                                }
+                                } */}
                             </div>
                         </div>
                     </Col>
