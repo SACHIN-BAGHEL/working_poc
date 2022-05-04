@@ -238,14 +238,14 @@ export default class SingleContentList extends Component {
                   <tbody>
                     {this.state.contents.map(content => {
                       return (
-                        <tr key={content.id} onClick={this.open} className="rowCursorPointer">
+                        <tr key={content.id} className="rowCursorPointer">
                           <td width="5%" align="center">
                             <input onClick={() => {this.props.getData(content); this.setState({ selectedContent: content })}} type="radio" id="age3" name="age" value="100" />
                           </td>
-                          <td>{content[Object.keys(content)[1]]}</td>
-                          <td>{`${content.createdBy.firstname} ${content.createdBy.lastname}`}</td>
-                          <td>{content.publishedAt}</td>
-                          <td>{content.updatedAt}</td>
+                          <td onClick={this.open}>{content[Object.keys(content)[1]]}</td>
+                          <td onClick={this.open}>{`${content.createdBy.firstname} ${content.createdBy.lastname}`}</td>
+                          <td onClick={this.open}>{content.publishedAt}</td>
+                          <td onClick={this.open}>{content.updatedAt}</td>
                         </tr>)
                     })}
                   </tbody>
