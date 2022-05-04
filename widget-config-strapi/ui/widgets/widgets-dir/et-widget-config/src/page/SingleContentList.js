@@ -1,16 +1,12 @@
-import React, { Component } from 'react'
 import {
-    Grid,
-    Row,
-    Col,
-    Button,
-    PaginationRow
+  Col, Grid, PaginationRow, Row
 } from 'patternfly-react';
+import React, { Component } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { LASTPAGE, NAME, PAGE, PAGECHANGEVALUE, PAGEINPUT, PAGESIZE, PERPAGEOPTIONS, SEARCH_CONTENT_BY_NAME, SELECT_COLLECTION_TYPE, TOTALITEMS, T_HEADING } from '../helper/Constant';
 import { Link } from 'react-router-dom';
-import ContentDetailModal from '../ui/ContentDetailModal';
 import { filterContentsByName, getCollectionTypes, getContents } from '../api/Api';
+import { LASTPAGE, NAME, PAGE, PAGECHANGEVALUE, PAGEINPUT, PAGESIZE, PERPAGEOPTIONS, SEARCH_CONTENT_BY_NAME, SELECT_COLLECTION_TYPE, TOTALITEMS, T_HEADING } from '../helper/Constant';
+import ContentDetailModal from '../ui/ContentDetailModal';
 
 export default class SingleContentList extends Component {
 

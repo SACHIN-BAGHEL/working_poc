@@ -1,15 +1,9 @@
-import { Button } from 'patternfly-react/dist/js/components/Button'
-import { FormGroup } from 'patternfly-react/dist/js/components/Form'
-import { Col, Row } from 'patternfly-react/dist/js/components/Grid'
-import { Icon } from 'patternfly-react/dist/js/components/Icon'
-import { Modal } from 'patternfly-react/dist/js/components/Modal'
-// import { Modal } from 'patternfly-react';
+import { Button, Col, Row, Modal, Icon } from 'patternfly-react';
 import React, { Component, Fragment } from 'react'
 import { fetchContents, filterContentsByName, getCollectionTypes } from '../api/Api'
 import { MockClientPaginationTable } from '../MockClientPaginationTable'
-import { TableBuilder } from '../helper/Helper'
-import './MockModalManager.css'
 import ExpandCollapse from './ExpandCollapse'
+import './MockModalManager.css'
 
 export default class MockModalManager extends Component {
     constructor(props) {

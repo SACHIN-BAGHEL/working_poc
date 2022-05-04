@@ -50,7 +50,6 @@ export default class Config extends Component {
             contentTypeRefine.push({ label: element.info.pluralName })
         });
         let { data: templatesList } = await getTemplate();
-        console.log('templatesList ======== ', templatesList);
         this.setState({ templateList: templatesList, collectionTypes: templatesList })
     }
 

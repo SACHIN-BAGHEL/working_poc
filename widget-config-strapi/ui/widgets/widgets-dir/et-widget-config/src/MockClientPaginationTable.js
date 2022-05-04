@@ -1,25 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { orderBy } from 'lodash';
 import classNames from 'classnames';
+import { orderBy } from 'lodash';
+import {
+    customHeaderFormattersDefinition,
+    defaultSortingOrder, Grid, paginate, PaginationRow,
+    PAGINATION_VIEW, selectionCellFormatter, sortableHeaderCellFormatter,
+    Table, tableCellFormatter, TABLE_SORT_DIRECTION
+} from 'patternfly-react';
+import React from 'react';
+import { compose } from 'react-recompose';
 import * as sort from 'sortabular';
 import * as resolve from 'table-resolver';
-import {
-    actionHeaderCellFormatter,
-    customHeaderFormattersDefinition,
-    defaultSortingOrder,
-    selectionCellFormatter,
-    selectionHeaderCellFormatter,
-    sortableHeaderCellFormatter,
-    tableCellFormatter,
-    Table,
-    TABLE_SORT_DIRECTION
-} from 'patternfly-react';
-import { MenuItem } from 'patternfly-react';
-import { Grid } from 'patternfly-react';
-import { PaginationRow, paginate, PAGINATION_VIEW } from 'patternfly-react';
-import { compose } from 'react-recompose';
-// import { mockRows } from 'patternfly-react';
 
 const mockRows = [
     // {

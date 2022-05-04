@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import ConfigContentPage from './page/Config';
 import {
     BrowserRouter as Router,
     Route
 } from 'react-router-dom';
-import SingleContentList from './page/SingleContentList';
 import Config from './page/Config';
+import SingleContentList from './page/SingleContentList';
 
 class App extends Component {
     // TODO: not delete because this all state will be pass through web-components later...
@@ -13,11 +12,11 @@ class App extends Component {
         super(props);
         this.state = {
             selectedContent: [],
-            name: null,
-            nameTwo: null,
-            collectionTypes: [],
             selectedContentId: 0,
             selectedTemplateId: 'default'
+            // name: null,
+            // nameTwo: null,
+            // collectionTypes: [],
         };
     }
 

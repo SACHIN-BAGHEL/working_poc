@@ -1,6 +1,4 @@
 import React from "react";
-import { Typeahead } from "react-bootstrap-typeahead";
-import { SELECT_COLLECTION_TYPE } from "../helper/Constant";
 
 export class SimpleTable extends React.Component {
 
