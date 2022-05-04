@@ -32,3 +32,8 @@ export const T_HEADING = {
     LASTEDITED: LASTEDITED,
     CREATEDEDITED: CREATEDEDITED,
 }
+
+/*********************
+ * For Strapi API ****
+ *********************/
+export const KC_TOKEN_PREFIX = 'EntKcToken';
