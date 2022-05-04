@@ -65,40 +65,36 @@ export default class ContentDetailModal extends Component {
                         <div>
                             <Tabs id={'id'} activeKey={this.state.activeTabKey} onSelect={this.toggleTab}>
                                 <Tab eventKey={0} title="English">
-                                    <div style={{ paddingLeft: "7rem", paddingRight: "7rem", paddingTop: "3rem", paddingBottom: "5rem", overflowY: 'auto', maxHeight: '600px', minHeight: '500px' }}>
-                                        <Row>
-                                            <Col lg={12}>
-                                                <table style={{ borderSpacing: "0 1em", textAlign: "justify" }}>
-                                                    {Object.keys(this.state.collectionAttributes).filter(key => !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt")).map((key, i) => (
-                                                        <tr key={i} style={{ borderBottom: "1px solid #f5f5f5", padding: "1rem 0rem" }}>
-                                                            <td style={{ textAlign: "center", paddingRight: "150px" }}> <label className="control-label col-xs-3" style={{ fontWeight: 'bold', fontSize: "15px" }} htmlFor="group">
-                                                                {key.charAt(0).toUpperCase() + key.slice(1)}
-                                                            </label></td>
-                                                            <td style={{ textAlign: "justify", fontSize: "15px", padding: "1rem 0rem" }}>{this.state.collectionAttributes[key]}</td>
-                                                        </tr>
-                                                    ))}
-                                                </table>
-                                            </Col>
-                                        </Row>
-                                    </div>
+                                    {Object.keys(this.state.collectionAttributes).filter(key => !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt")).map((key, i) => {
+                                        return (
+                                            <div className="row" style={{ marginBottom: "2rem", marginTop: "1rem" }}>
+                                                <div className="col-xs-12">
+                                                    <Col xs={2}>
+                                                        <strong>{key.charAt(0).toUpperCase() + key.slice(1)}</strong>
+                                                    </Col>
+                                                    <Col xs={10}>
+                                                        {this.state.collectionAttributes[key]}
+                                                    </Col>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
                                 </Tab>
                                 <Tab eventKey={1} title="Italiano">
-                                    <div style={{ paddingLeft: "7rem", paddingRight: "7rem", paddingTop: "3rem", paddingBottom: "5rem", overflowY: 'auto', maxHeight: '600px', minHeight: '500px' }}>
-                                        <Row>
-                                            <Col lg={12}>
-                                                <table style={{ borderSpacing: "0 1em", textAlign: "justify" }}>
-                                                    {Object.keys(this.state.collectionAttributes).filter(key => !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt")).map((key, i) => (
-                                                        <tr key={i+1} style={{ borderBottom: "1px solid #f5f5f5", padding: "1rem 0rem" }}>
-                                                            <td style={{ textAlign: "center", paddingRight: "150px" }}> <label className="control-label col-xs-3" style={{ fontWeight: 'bold', fontSize: "15px" }} htmlFor="group">
-                                                                {key.charAt(0).toUpperCase() + key.slice(1)}
-                                                            </label></td>
-                                                            <td style={{ textAlign: "justify", fontSize: "15px", padding: "1rem 0rem" }}>{this.state.collectionAttributes[key]}</td>
-                                                        </tr>
-                                                    ))}
-                                                </table>
-                                            </Col>
-                                        </Row>
-                                    </div>
+                                    {Object.keys(this.state.collectionAttributes).filter(key => !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt")).map((key, i) => {
+                                        return (
+                                            <div className="row" style={{ marginBottom: "2rem", marginTop: "1rem" }}>
+                                                <div className="col-xs-12">
+                                                    <Col xs={2}>
+                                                        <strong>{key.charAt(0).toUpperCase() + key.slice(1)}</strong>
+                                                    </Col>
+                                                    <Col xs={10}>
+                                                        {this.state.collectionAttributes[key]}
+                                                    </Col>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
                                 </Tab>
                             </Tabs>
                         </div>
