@@ -2,8 +2,8 @@ import axios from 'axios';
 
 // http://localhost:8082/api/templates/searchby/code/1002
 
-const apiEndPoint = 'http://localhost:8082/api/templates/searchby/';
-const strapiEndPoint = 'http://localhost:1337/api/';
+const strapiEndPoint = `${process.env.REACT_APP_STRAPI_API_URL}`;
+const apiEndPoint = `${process.env.REACT_APP_PUBLIC_API_URL}/template/searchby/`;
 
 export const getTemplate = async (searchby = 'code', searchTerm) => {
     console.log("GETTEMPLATE 1");
