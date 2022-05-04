@@ -52,7 +52,7 @@ export default class ContentDetailModal extends Component {
                         <div>
                             <Tabs id={'id'} activeKey={this.state.activeTabKey} onSelect={this.toggleTab}>
                                 <Tab eventKey={0} title="English">
-                                    {Object.keys(this.dataToShowOnModal).length > 0 && Object.keys(this.dataToShowOnModal).filter(key => !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt") && !key.match("FName") && !key.match("Image")).map((key, i) => {
+                                    {Object.keys(this.dataToShowOnModal).length > 0 && Object.keys(this.dataToShowOnModal).filter(key => !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt") && !key.match("Image")).map((key, i) => {
                                         return (
                                             <div key={i} className="row" style={{ marginBottom: "2rem", marginTop: "1rem" }}>
                                                 <div className="col-xs-12">
@@ -60,7 +60,11 @@ export default class ContentDetailModal extends Component {
                                                         <strong>{key.charAt(0).toUpperCase() + key.slice(1)}</strong>
                                                     </Col>
                                                     <Col xs={10}>
-                                                        {this.dataToShowOnModal[key]}
+                                                        {
+                                                            typeof this.dataToShowOnModal[key] === 'object' ?
+                                                                Object.keys(this.dataToShowOnModal[key]).map(el => (typeof this.dataToShowOnModal[key])[el] === 'object' ? '' : (this.dataToShowOnModal[key])[el] + ' | ') :
+                                                                this.dataToShowOnModal[key]
+                                                        }
                                                     </Col>
                                                 </div>
                                             </div>
