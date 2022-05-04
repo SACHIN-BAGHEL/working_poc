@@ -64,7 +64,7 @@ export default class SingleContentList extends Component {
   }
 
   open = async (content) => {
-    this.setState({ show: true, contentDetailsOnModal: content  })
+    this.setState({ show: true, contentDetailsOnModal: content })
   }
 
   close = () => {
@@ -127,7 +127,7 @@ export default class SingleContentList extends Component {
     // collectionType, query, searchBy
     if (this.state.searchQuery) {
       const searchResult = await filterContentsByName(
-        this.state.selectedCollectionType[0].label, 
+        this.state.selectedCollectionType[0].label,
         this.state.searchQuery, this.state.setSearchBy, PAGE, PAGESIZE
       );
       this.setState({
@@ -238,13 +238,13 @@ export default class SingleContentList extends Component {
                               this.props.getData(content);
                               this.setState({ selectedContent: content })
                             }}
-                              type="radio" id={content+content.id} name="content" value={content.id}
+                              type="radio" id={content + content.id} name="content" value={content.id}
                             />
                           </td>
-                          <td onClick={()=>this.open(content)}>{content[Object.keys(content)[1]]}</td>
-                          <td onClick={()=>this.open(content)}>{`${content.createdBy.firstname} ${content.createdBy.lastname}`}</td>
-                          <td onClick={()=>this.open(content)}>{content.publishedAt}</td>
-                          <td onClick={()=>this.open(content)}>{content.updatedAt}</td>
+                          <td onClick={() => this.open(content)}>{content[Object.keys(content)[1]]}</td>
+                          <td onClick={() => this.open(content)}>{`${content.createdBy.firstname} ${content.createdBy.lastname}`}</td>
+                          <td onClick={() => this.open(content)}>{content.publishedAt}</td>
+                          <td onClick={() => this.open(content)}>{content.updatedAt}</td>
                         </tr>)
                     })}
                   </tbody>
