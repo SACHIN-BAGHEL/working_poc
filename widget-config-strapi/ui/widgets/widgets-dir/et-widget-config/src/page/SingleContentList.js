@@ -21,6 +21,7 @@ export default class SingleContentList extends Component {
       pageInput: PAGEINPUT,
       pageChangeValue: PAGECHANGEVALUE,
       show: false,
+      contentDetailsOnModal: {},
       searchQuery: '',
       setSearchBy: '',
       // DATA STATE
@@ -62,11 +63,8 @@ export default class SingleContentList extends Component {
     return collectionTypeData.filter(el => el.uid.startsWith('api::'))
   }
 
-  open = async () => {
-    this.setState({ show: true })
-    // Commented for now..
-    // let contentTypes = await getContents("Sample-about-uses");
-    // this.setState({ collectionAttributes: dummyData })
+  open = async (content) => {
+    this.setState({ show: true, contentDetailsOnModal: content  })
   }
 
   close = () => {
@@ -236,12 +234,17 @@ export default class SingleContentList extends Component {
                       return (
                         <tr key={content.id} className="rowCursorPointer">
                           <td width="5%" align="center">
-                            <input onClick={() => {this.props.getData(content); this.setState({ selectedContent: content })}} type="radio" id="age3" name="age" value="100" />
+                            <input onClick={() => {
+                              this.props.getData(content);
+                              this.setState({ selectedContent: content })
+                            }}
+                              type="radio" id={content+content.id} name="content" value={content.id}
+                            />
                           </td>
-                          <td onClick={this.open}>{content[Object.keys(content)[1]]}</td>
-                          <td onClick={this.open}>{`${content.createdBy.firstname} ${content.createdBy.lastname}`}</td>
-                          <td onClick={this.open}>{content.publishedAt}</td>
-                          <td onClick={this.open}>{content.updatedAt}</td>
+                          <td onClick={()=>this.open(content)}>{content[Object.keys(content)[1]]}</td>
+                          <td onClick={()=>this.open(content)}>{`${content.createdBy.firstname} ${content.createdBy.lastname}`}</td>
+                          <td onClick={()=>this.open(content)}>{content.publishedAt}</td>
+                          <td onClick={()=>this.open(content)}>{content.updatedAt}</td>
                         </tr>)
                     })}
                   </tbody>
@@ -279,19 +282,8 @@ export default class SingleContentList extends Component {
             </Row>
           </>
         }
-        <ContentDetailModal show={this.state.show} onHide={this.close} dummyData={dummyData} />
+        <ContentDetailModal show={this.state.show} onHide={this.close} contentDetailsOnModal={this.state.contentDetailsOnModal} />
       </Grid>
     )
   }
-}
-
-// TODO: need to remove later
-export const dummyData = {
-  "Title": "About Us",
-  "Subtitle": "By integrating leading edge open source projects and extending their capabilities, Entando allows developers and operations teams to create modern UX on Kubernetes.",
-  "Abstract": "Entando is an open source software company providing the leading micro frontend platform building enterprise web apps on Kubernetes. The company, founded in 2010 as an open-source system integrator, was re-founded as a product company in 2015 in response to the growing demand for tools and services to create modern online experiences. Since then, Entando has stepped into international markets. It’s headquartered in San Diego, California with R&D and sales offices in Europe, and features teams all over the world, including the United States, Italy, Brazil, South Africa, Georgia and the Philippines.\nIn 2015, Entando was named in the “Cool Vendors in Web Computing” Gartner report. In 2017, it became an official Red Hat Technology Partner, followed in 2018 by an OEM agreement with Red Hat. Also in 2018 the platform won the Digital360 Awards prize in the cloud computing category.\n",
-  "createdAt": "2022-03-14T05:45:10.607Z",
-  "updatedAt": "2022-05-02T07:43:44.378Z",
-  "publishedAt": "2022-03-14T05:45:13.766Z",
-  "Test": "Testing"
 }
