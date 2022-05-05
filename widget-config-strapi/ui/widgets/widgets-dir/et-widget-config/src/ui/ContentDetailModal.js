@@ -61,7 +61,7 @@ export default class ContentDetailModal extends Component {
                                                     </Col>
                                                     <Col xs={10}>
                                                         {
-                                                            typeof this.dataToShowOnModal[key] === 'object' ?
+                                                            this.dataToShowOnModal[key] && typeof this.dataToShowOnModal[key] === 'object' ?
                                                                 Object.keys(this.dataToShowOnModal[key]).map(el => (typeof this.dataToShowOnModal[key])[el] === 'object' ? '' : (this.dataToShowOnModal[key])[el] + ' | ') :
                                                                 this.dataToShowOnModal[key]
                                                         }
