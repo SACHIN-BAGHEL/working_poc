@@ -49,12 +49,6 @@
   font-size: 13px;
 }
 
-.SingleContentConfigFormBody__widgetTitle {
-  display: inline-block;
-  margin-left: 5px;
-  font-size: 13px;
-}
-
 .SingleContentConfigFormBody__addButtons {
   text-align: right;
 }
@@ -79,3 +73,18 @@
 /* Show-Detail-Attribute-Modal CSS START */
 .modal-dialog{width:80%;}
 /* Show-Detail-Attribute-Modal CSS END */
+
+.SectionTitle__emphasize-caption, .SectionTitle__non-collapsable {
+    margin-bottom: 30px;
+    padding-bottom: 0;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 18px;
+}
+.SectionTitle {
+    width: 100%;
+    padding: 20px 0;
+    outline: none;
+    font-size: 16px;
+    line-height: inherit;
+    text-transform: capitalize;
+}
