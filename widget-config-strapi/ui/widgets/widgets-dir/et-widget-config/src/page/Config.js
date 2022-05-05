@@ -74,7 +74,7 @@ export default class Config extends Component {
                                     <Col xs={6} className="SingleContentConfigFormBody__addButtons">
                                         <Link to="/configpage">
                                             <Button bsStyle="primary">
-                                                Add existing content
+                                                {this.props.selectedContent.length ? 'Edit' : 'Add'} existing content
                                             </Button>
                                         </Link>
                                         <Button className="AddContentTypeFormBody__save--btn" bsStyle="primary">
