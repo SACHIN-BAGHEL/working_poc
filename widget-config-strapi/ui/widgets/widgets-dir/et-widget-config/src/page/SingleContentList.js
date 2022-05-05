@@ -39,6 +39,8 @@ export default class SingleContentList extends Component {
   componentDidUpdate = async (prevProps, prevState) => {
     if (prevProps.selectedCollectionType !== this.props.selectedCollectionType ||
       prevState.pageSize !== this.state.pageSize) {
+      await this.getContentsByCollectionType(this.state.selectedCollectionType[0].label, this.state.page, this.state.pageSize);
+
       // await this.getTemplates(this.props.selectedCollectionType, true).then(res => {
       //   if (this.state.contents.length) {
       //     this.setState({ currPageWillUpdating: PAGE })
@@ -150,6 +152,10 @@ export default class SingleContentList extends Component {
   handleQueryChange = (e) => {
     e.preventDefault();
     this.setState({ searchQuery: e.target.value })
+  }
+
+  onPerPageSelect = (pageSize) => {
+    this.setState({pageSize})
   }
 
   render() {
