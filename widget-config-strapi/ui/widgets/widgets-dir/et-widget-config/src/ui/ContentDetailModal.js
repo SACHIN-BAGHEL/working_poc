@@ -15,10 +15,10 @@ export default class ContentDetailModal extends Component {
 
     constructContentDetailsForModal = () => {
         if (Object.keys(this.props.contentDetailsOnModal).length && Object.keys(this.props.contentDetailsOnModal).indexOf('createdBy')) {
-            this.dataToShowOnModal = {...this.props.contentDetailsOnModal};
-            const {firstname, lastname} = this.dataToShowOnModal.createdBy;
-            const {firstname : updatedFname, lastname: updatedLname} = this.dataToShowOnModal.updatedBy;
-            const {createdBy, updatedBy} = this.dataToShowOnModal;
+            this.dataToShowOnModal = { ...this.props.contentDetailsOnModal };
+            const { firstname, lastname } = this.dataToShowOnModal.createdBy;
+            const { firstname: updatedFname, lastname: updatedLname } = this.dataToShowOnModal.updatedBy;
+            const { createdBy, updatedBy } = this.dataToShowOnModal;
             if (createdBy) this.dataToShowOnModal.createdBy = `${firstname} ${lastname}`;
             if (updatedBy) this.dataToShowOnModal.updatedBy = `${updatedFname} ${updatedLname}`;
         }
@@ -26,7 +26,6 @@ export default class ContentDetailModal extends Component {
 
     render() {
         this.constructContentDetailsForModal();
-
         return (
             <>
                 <Modal dialogClassName="ContentsFilterModal" show={this.props.show} onHide={this.props.onHide}>
@@ -39,7 +38,7 @@ export default class ContentDetailModal extends Component {
                         >
                             <Icon type="pf" name="close" />
                         </button>
-                        <Modal.Title>Sample - About Us
+                        <Modal.Title>{Object.keys(this.dataToShowOnModal).length > 0 && this.dataToShowOnModal[Object.keys(this.dataToShowOnModal)[1]]}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -52,7 +51,7 @@ export default class ContentDetailModal extends Component {
                         <div>
                             <Tabs id={'id'} activeKey={this.state.activeTabKey} onSelect={this.toggleTab}>
                                 <Tab eventKey={0} title="English">
-                                    {Object.keys(this.dataToShowOnModal).length > 0 && Object.keys(this.dataToShowOnModal).filter(key => !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt") && !key.match("Image")).map((key, i) => {
+                                    {Object.keys(this.dataToShowOnModal).length > 0 && Object.keys(this.dataToShowOnModal).filter(key => ignoreProps(key)).map((key, i) => {
                                         return (
                                             <div key={i} className="row" style={{ marginBottom: "2rem", marginTop: "1rem" }}>
                                                 <div className="col-xs-12">
@@ -72,7 +71,7 @@ export default class ContentDetailModal extends Component {
                                     })}
                                 </Tab>
                                 <Tab eventKey={1} title="Italiano">
-                                    {Object.keys(this.dataToShowOnModal).length > 0 && Object.keys(this.dataToShowOnModal).filter(key => !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt") && !key.match("FName") && !key.match("Image")).map((key, i) => {
+                                    {Object.keys(this.dataToShowOnModal).length > 0 && Object.keys(this.dataToShowOnModal).filter(key => !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt") && !key.match("FName") && !key.match("Image") && !key.match("createdBy") && !key.match("updatedBy")).map((key, i) => {
                                         return (
                                             <div key={i} className="row" style={{ marginBottom: "2rem", marginTop: "1rem" }}>
                                                 <div className="col-xs-12">
@@ -101,5 +100,9 @@ export default class ContentDetailModal extends Component {
                 </Modal>
             </>
         );
+
+        function ignoreProps(key) {
+            return !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt") && !key.match("Image") && !key.match("createdBy") && !key.match("updatedBy") && !key.match("id");
+        }
     }
 }
