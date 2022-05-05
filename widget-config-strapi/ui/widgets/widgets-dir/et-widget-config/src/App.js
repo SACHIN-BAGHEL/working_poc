@@ -13,7 +13,8 @@ class App extends Component {
         this.state = {
             selectedContent: [],
             selectedContentId: 0,
-            selectedTemplateId: 'default'
+            selectedTemplateId: 'default',
+            selectedContentName: null
             // name: null,
             // nameTwo: null,
             // collectionTypes: [],
@@ -21,7 +22,11 @@ class App extends Component {
     }
 
     getData = (data) => {
-        this.setState({selectedContent: [data]})
+        this.setState({ selectedContent: [data] })
+    }
+
+    setSelectedContentName = (contentName) => {
+        this.setState({ selectedContentName: contentName })
     }
 
     render() {
@@ -31,7 +36,7 @@ class App extends Component {
                     <Config selectedContent={this.state.selectedContent} />
                 </Route>
                 <Route path='/configpage' exact>
-                    <SingleContentList getData={this.getData} />
+                    <SingleContentList getData={this.getData} setSelectedContentName={this.setSelectedContentName}/>
                 </Route>
             </Router>
         )

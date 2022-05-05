@@ -74,7 +74,12 @@ export default class SingleContentList extends Component {
   handleCollectionTypeChange = async (collectionType) => {
     const collType = collectionType[0]
     this.setState({ selectedCollectionType: collectionType })
-    collType && collType.label && await this.getContentsByCollectionType(collType.label)
+    if (collType && collType.label) {
+      await this.getContentsByCollectionType(collType.label)
+      this.props.setSelectedContentName(collType.label)
+    } else {
+      this.props.setSelectedContentName(null);
+    }
   }
 
   getContentsByCollectionType = async (collectionType, page, pageSize) => {
