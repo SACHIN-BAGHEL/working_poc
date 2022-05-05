@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { getTemplate } from './api/Api';
+import { getContentById, getTemplate, getTemplateById } from './api/Api';
 import TemplateComponent from './helper/TemplateComponent';
 import axios from 'axios';
 import './app.css';
@@ -54,6 +54,10 @@ function App({ name, nameTwo, templateId, contentId }) {
 
     useEffect(() => {
         (async () => {
+            const dataTemplateId = await getTemplateById(48);
+            const dataContentById = await getContentById();
+            console.log('dataTemplateId', dataTemplateId);
+            console.log('dataContentById', dataContentById);
             const { data } = await getTemplate('code', templateId);
             const { data: strapiData } = await axios.get(`${domain}/api/projects?populate=img`);
             console.log('core Data', strapiData.data);
