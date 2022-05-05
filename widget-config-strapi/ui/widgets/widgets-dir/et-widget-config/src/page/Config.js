@@ -9,6 +9,7 @@ import MockModalManager from '../ui/MockModalManager';
 import { SimpleTable } from '../ui/SimpleTable';
 import { getCollectionTypes, getTemplate } from '../api/Api';
 import { Link } from 'react-router-dom';
+import { BTN_ADD_NEW_CONTENT, STRAPI_DASHBOARD_URL } from '../helper/Constant';
 
 export default class Config extends Component {
     constructor(props) {
@@ -22,6 +23,7 @@ export default class Config extends Component {
             selectedTemplateId: 'default',
             templateList: []
         };
+        this.handleAddNewContent = this.handleAddNewContent.bind(this);
     }
 
     onChangeTemplateId = (event) => {
@@ -53,6 +55,16 @@ export default class Config extends Component {
         this.setState({ templateList: templatesList, collectionTypes: templatesList })
     }
 
+    /**
+     * Navigate to Strapi dashboard/login page in a new tab on browser
+     */
+     handleAddNewContent = () => {
+        var newWindow = window.open(STRAPI_DASHBOARD_URL, '_blank', 'noopener,noreferrer');
+        if(newWindow) {
+            newWindow.focus();
+        }
+    }
+
     render() {
         return (
             <form className="form-horizontal SingleContentConfigForm well">
@@ -77,8 +89,8 @@ export default class Config extends Component {
                                                 {this.props.selectedContent.length ? 'Edit' : 'Add'} existing content
                                             </Button>
                                         </Link>
-                                        <Button className="AddContentTypeFormBody__save--btn" bsStyle="primary">
-                                            Add new content
+                                        <Button className="AddContentTypeFormBody__save--btn" bsStyle="primary" onClick={this.handleAddNewContent}>
+                                            {BTN_ADD_NEW_CONTENT}
                                         </Button>
                                     </Col>
                                 </div>
