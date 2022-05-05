@@ -6,7 +6,7 @@ import './app.css';
 
 const domain = 'http://localhost:1337'
 
-function App({ name, nameTwo, templateId, contentId }) {
+function App({ name, nameTwo, templateId, contentId, contentName }) {
     
     console.log('NAME, NAMETWO, TEMPLATEID, CONTENTID -1', name, nameTwo, templateId, contentId);
     if (!name) {
@@ -55,7 +55,7 @@ function App({ name, nameTwo, templateId, contentId }) {
     useEffect(() => {
         (async () => {
             const dataTemplateId = await getTemplateById(48);
-            const dataContentById = await getContentById();
+            const dataContentById = await getContentById(contentName, contentId);
             console.log('dataTemplateId', dataTemplateId);
             console.log('dataContentById', dataContentById);
             const { data } = await getTemplate('code', templateId);
