@@ -55,41 +55,34 @@ export default class Config extends Component {
 
     render() {
         return (
-            <Grid>
+            <form className="form-horizontal SingleContentConfigForm well">
                 <Row>
                     <Col xs={12}>
-                        <div className="form-horizontal SingleContentConfigForm well">
+                        <div>
                             <div>
                                 <span className="icon fa fa-puzzle-piece" title="Widget" />
                                 <h5 className="SingleContentConfigFormBody__widgetTitle">Content</h5>
-                                <div
-                                    className={"FormSectionTitle__inner-body"}
-                                    role="button"
-                                    tabIndex={0}
-                                >   <legend>
-                                        <span className="SectionTitle__tip">
-                                            Info
-                                        </span>
-                                    </legend>
-                                    <div className="row" style={{ marginLeft: "0px", marginRight: "0px" }}>
-                                        <Col xs={6}>
-                                            <h3 className="SingleContentConfigFormBody__contentTitle">
-                                                Content: -
-                                            </h3>
-                                        </Col>
-                                        <Col xs={6} className="SingleContentConfigFormBody__addButtons">
-                                            <Link to="/configpage">
-                                                <Button bsStyle="primary">
-                                                    Add existing content
-                                                </Button>
-                                            </Link>
-                                            <Button className="AddContentTypeFormBody__save--btn" bsStyle="primary">
-                                                Add new content
-                                            </Button>
-                                        </Col>
-                                    </div>
-                                    <MockModalManager rightSide={false} setSelectedContent={this.setSelectedContent} />
+                                <div class="SectionTitle SectionTitle__non-collapsable" role="button" tabindex="0">
+                                    <span>Info</span>
                                 </div>
+                                <div className="row">
+                                    <Col xs={6}>
+                                        <h3 className="SingleContentConfigFormBody__contentTitle">
+                                            Content: -
+                                        </h3>
+                                    </Col>
+                                    <Col xs={6} className="SingleContentConfigFormBody__addButtons">
+                                        <Link to="/configpage">
+                                            <Button bsStyle="primary">
+                                                Add existing content
+                                            </Button>
+                                        </Link>
+                                        <Button className="AddContentTypeFormBody__save--btn" bsStyle="primary">
+                                            Add new content
+                                        </Button>
+                                    </Col>
+                                </div>
+                                <MockModalManager rightSide={false} setSelectedContent={this.setSelectedContent} />
                                 <div style={{ marginTop: "1rem" }}></div>
                                 <SimpleTable setTemplateId={this.props.setTemplateId} templateList={this.state.templateList} content={this.state.selectedContent} selectedContent={this.props.selectedContent} />
                                 {/* {
@@ -110,7 +103,7 @@ export default class Config extends Component {
                         </div>
                     </Col>
                 </Row>
-            </Grid>
+            </form>
         )
     }
 }

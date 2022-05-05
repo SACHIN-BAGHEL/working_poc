@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {
-    BrowserRouter as Router,
-    Route
-} from 'react-router-dom';
+import { Route, HashRouter, Switch } from 'react-router-dom';
 import Config from './page/Config';
 import SingleContentList from './page/SingleContentList';
 
@@ -15,8 +12,8 @@ class App extends Component {
             selectedContentId: 0,
             selectedTemplateId: 'default',
             selectedContentName: null,
-            name: null,
-            nameTwo: null,
+            name: 'test single name',
+            nameTwo: 'nameTwo',
             // collectionTypes: [],
         };
     }
@@ -35,14 +32,22 @@ class App extends Component {
 
     render() {
         return (
-            <Router>
-                <Route path='/' exact>
-                    <Config selectedContent={this.state.selectedContent} setTemplateId={this.setTemplateId }/>
-                </Route>
-                <Route path='/configpage' exact>
-                    <SingleContentList setContent={this.setContent} setSelectedContentName={this.setSelectedContentName}/>
-                </Route>
-            </Router>
+            <>
+                <div>
+                    <h1>Sample Entando 7 Widget Configuration</h1>
+                </div>
+                <HashRouter>
+                    <Switch>
+                        <Route path='/' exact>
+                            <Config selectedContent={this.state.selectedContent} setTemplateId={this.setTemplateId} />
+                        </Route>
+                        <Route path='/configpage' exact>
+                            <SingleContentList setContent={this.setContent} setSelectedContentName={this.setSelectedContentName} />
+                        </Route>
+
+                    </Switch>
+                </HashRouter>
+            </>
         )
     }
 }
