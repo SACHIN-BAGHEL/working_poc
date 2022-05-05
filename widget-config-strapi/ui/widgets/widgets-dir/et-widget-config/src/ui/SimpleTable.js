@@ -26,6 +26,10 @@ export class SimpleTable extends React.Component {
         ><span className="fa fa-angle-down"></span></button>
     );
 
+    onChangeTemplateId = (e) => {
+        this.props.setTemplateId(e.target.value);
+    }
+
     render() {
         return (
             <>

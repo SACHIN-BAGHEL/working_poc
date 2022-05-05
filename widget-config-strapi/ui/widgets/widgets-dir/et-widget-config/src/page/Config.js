@@ -91,7 +91,7 @@ export default class Config extends Component {
                                     <MockModalManager rightSide={false} setSelectedContent={this.setSelectedContent} />
                                 </div>
                                 <div style={{ marginTop: "1rem" }}></div>
-                                <SimpleTable templateList={this.state.templateList} content={this.state.selectedContent} selectedContent={this.props.selectedContent} />
+                                <SimpleTable setTemplateId={this.props.setTemplateId} templateList={this.state.templateList} content={this.state.selectedContent} selectedContent={this.props.selectedContent} />
                                 {/* {
                                     this.state.selectedContentId != 0 &&
                                     <div style={{ marginTop: "1rem" }}>

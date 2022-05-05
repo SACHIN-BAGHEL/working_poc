@@ -240,7 +240,7 @@ export default class SingleContentList extends Component {
                         <tr key={content.id} className="rowCursorPointer">
                           <td width="5%" align="center">
                             <input onClick={() => {
-                              this.props.getData(content);
+                              this.props.setContent(content);
                               this.setState({ selectedContent: content })
                             }}
                               type="radio" id={content + content.id} name="content" value={content.id}
