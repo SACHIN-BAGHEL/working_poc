@@ -62,7 +62,7 @@ export default class Config extends Component {
                             <div>
                                 <span className="icon fa fa-puzzle-piece" title="Widget" />
                                 <h5 className="SingleContentConfigFormBody__widgetTitle">Content</h5>
-                                <div class="SectionTitle SectionTitle__non-collapsable" role="button" tabindex="0">
+                                <div className="SectionTitle SectionTitle__non-collapsable" role="button">
                                     <span>Info</span>
                                 </div>
                                 <div className="row">
