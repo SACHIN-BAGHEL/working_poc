@@ -44,8 +44,9 @@ export const getTemplate = async (token) => {
 const getKeycloakToken = () => {
     if (window && window.entando && window.entando.keycloak && window.entando.keycloak.authenticated) {
         return window.entando.keycloak.token
+    } else {
+        return localStorage.getItem('token');
     }
-    return ''
 }
 
 const getDefaultOptions = (defaultBearer) => {
@@ -55,7 +56,7 @@ const getDefaultOptions = (defaultBearer) => {
         if (defaultBearer === KC_TOKEN_PREFIX) {
             return {
                 headers: {
-                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUxNTczODkxLCJleHAiOjE2NTQxNjU4OTF9.R6-HUb2Q5lMjKhR7eloHySrbFWeze4B02Srk4nJhWXs'}`
+                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUxNzU5ODg0LCJleHAiOjE2NTQzNTE4ODR9.3wYZBX0uvAvCBKGg5zvujsVromFT6xRR57yU1rHkdKA'}`
                 },
             }
         } else {

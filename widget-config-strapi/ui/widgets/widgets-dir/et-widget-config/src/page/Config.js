@@ -9,7 +9,8 @@ import MockModalManager from '../ui/MockModalManager';
 import { SimpleTable } from '../ui/SimpleTable';
 import { getCollectionTypes, getTemplate } from '../api/Api';
 import { Link } from 'react-router-dom';
-import { BTN_ADD_NEW_CONTENT, STRAPI_DASHBOARD_URL } from '../helper/Constant';
+import { BTN_ADD_NEW_CONTENT } from '../helper/Constant';
+const strapiDomain = `${process.env.REACT_APP_STRAPI_TARGET_URL}`;
 
 export default class Config extends Component {
     constructor(props) {
@@ -59,7 +60,8 @@ export default class Config extends Component {
      * Navigate to Strapi dashboard/login page in a new tab on browser
      */
      handleAddNewContent = () => {
-        var newWindow = window.open(STRAPI_DASHBOARD_URL, '_blank', 'noopener,noreferrer');
+        let strapiDashboardUrl = `${strapiDomain}/admin`;
+        var newWindow = window.open(strapiDashboardUrl, '_blank');
         if(newWindow) {
             newWindow.focus();
         }

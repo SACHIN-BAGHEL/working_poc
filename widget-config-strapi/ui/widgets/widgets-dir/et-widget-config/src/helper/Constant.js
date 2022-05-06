@@ -39,4 +39,3 @@ export const BTN_ADD_NEW_CONTENT = 'Add new content';
  * For Strapi API ****
  *********************/
 export const KC_TOKEN_PREFIX = 'EntKcToken';
-export const STRAPI_DASHBOARD_URL = 'http://localhost:1337/admin';
