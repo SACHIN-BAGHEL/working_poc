@@ -158,6 +158,10 @@ export default class SingleContentList extends Component {
     this.setState({pageSize})
   }
 
+  onPageInput = (pageInput) => {
+    console.log(pageInput)
+  }
+
   render() {
     const pagination = {
       page: this.state.page,

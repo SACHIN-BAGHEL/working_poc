@@ -13,6 +13,7 @@ export const getTemplate = async (searchby = 'code', searchTerm) => {
  * @returns 
  */
 export const getTemplateById = async (templateId) => {
+    console.log('fdfdsfffdsgffdsfgsfdgfdg');
     return await axios.get(`${process.env.REACT_APP_PUBLIC_API_URL}/template/${templateId}`);
 }
 
@@ -22,30 +23,32 @@ export const getTemplateById = async (templateId) => {
  * @param {*} contentId 
  * @returns 
  */
-export const getContentById = async (contentName, contentId) => {
+ export const getContentById = async (contentName = 'banner', contentId) => {
     if (!contentName || !contentId) console.error(contentName, contentId);
-    const url = `${strapiEndPoint}/content-manager/collection-types/api::${contentName}.${contentName}/${contentId}`;
+    const url = `${strapiEndPoint}/content-manager/collection-types/api::${'banner'}.${'banner'}/${contentId}`;
     const { data } = await axios.get(url, addAuthorizationRequestConfig({}, 'EntKcToken'))
 
     return data;
 }
 
 const getKeycloakToken = () => {
-    if (window && window.entando && window.entando.keycloak && window.entando.keycloak.authenticated) {
-        return window.entando.keycloak.token
-    } else {
-        return localStorage.getItem('token');
-    }
+    return '';
+    // if (window && window.entando && window.entando.keycloak && window.entando.keycloak.authenticated) {
+    //     return window.entando.keycloak.token
+    // } else {
+    //     return localStorage.getItem('token');
+    // }
 }
 
 const getDefaultOptions = (defaultBearer) => {
     const token = getKeycloakToken()
+    console.log('ET-Widget',token);
     if (!token) {
         //Below if condition is to run the strapi API in local
         if (defaultBearer === 'EntKcToken') {
             return {
                 headers: {
-                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUxNjY2ODY3LCJleHAiOjE2NTQyNTg4Njd9.HDMO-g89iRacB-9m8yQ39w4Rh4wNOR9xCL1dH1whPSE'}`
+                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUxODI0MjExLCJleHAiOjE2NTQ0MTYyMTF9.gTMLvBtF5iUnpMRJeK3UV1Mi62AQRLFfsVqdr31CuYA'}`
                 },
             }
         } else {

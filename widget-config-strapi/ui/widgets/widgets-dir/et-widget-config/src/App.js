@@ -12,18 +12,20 @@ class App extends Component {
             selectedContentId: 0,
             selectedTemplateId: 'default',
             selectedContentName: null,
-            name: 'test single name',
-            nameTwo: 'nameTwo',
+            name: 'vijayy',
+            nameTwo: 'nameTwoVar',
             // collectionTypes: [],
         };
     }
 
     setContent = (data) => {
         this.setState({ selectedContent: [data] })
+        this.setState({ selectedContentId: data.id })
+
     }
 
     setSelectedContentName = (contentName) => {
-        this.setState({ selectedContentName: contentName })
+        this.setState({ selectedContentName: contentName, name: contentName, nameTwo: contentName })
     }
 
     setTemplateId = (tempId) => {
@@ -31,6 +33,7 @@ class App extends Component {
     }
 
     render() {
+        console.log('state', this.state)
         return (
             <>
                 <HashRouter>

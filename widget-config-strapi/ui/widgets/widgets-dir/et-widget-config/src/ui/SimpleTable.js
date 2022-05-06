@@ -80,6 +80,6 @@ const contentAttribute = {
     createdAt: "Created by",
     updatedAt: "Last edited",
     createDate: "Created date",
-    selectDefaultTemplate: "Select default template"
+    selectDefaultTemplate: "Select default template *"
     // restirctions: "Restrictions"
 }
