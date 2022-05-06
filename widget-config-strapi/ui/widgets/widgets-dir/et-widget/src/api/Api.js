@@ -13,7 +13,6 @@ export const getTemplate = async (searchby = 'code', searchTerm) => {
  * @returns 
  */
 export const getTemplateById = async (templateId) => {
-    console.log('fdfdsfffdsgffdsfgsfdgfdg');
     return await axios.get(`${process.env.REACT_APP_PUBLIC_API_URL}/template/${templateId}`);
 }
 
@@ -32,12 +31,12 @@ export const getTemplateById = async (templateId) => {
 }
 
 const getKeycloakToken = () => {
-    return '';
-    // if (window && window.entando && window.entando.keycloak && window.entando.keycloak.authenticated) {
-    //     return window.entando.keycloak.token
-    // } else {
-    //     return localStorage.getItem('token');
-    // }
+    // return '';
+    if (window && window.entando && window.entando.keycloak && window.entando.keycloak.authenticated) {
+        return window.entando.keycloak.token
+    } else {
+        return localStorage.getItem('token');
+    }
 }
 
 const getDefaultOptions = (defaultBearer) => {
@@ -48,7 +47,7 @@ const getDefaultOptions = (defaultBearer) => {
         if (defaultBearer === 'EntKcToken') {
             return {
                 headers: {
-                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUxODI0MjExLCJleHAiOjE2NTQ0MTYyMTF9.gTMLvBtF5iUnpMRJeK3UV1Mi62AQRLFfsVqdr31CuYA'}`
+                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUxODMzOTYxLCJleHAiOjE2NTQ0MjU5NjF9.JOpa49ii3d6-bbO8SNmE3oFYpdDEXtLVbQzJCl4_784'}`
                 },
             }
         } else {

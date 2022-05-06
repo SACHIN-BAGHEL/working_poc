@@ -37,7 +37,6 @@ export const filterContentsByName = async (collectionType, query, searchBy, page
 
 // API to list of templates Spring-Boot API
 export const getTemplate = async (token) => {
-    console.log('ffffffffffffffffffffffffffffffffffff');
     const data = await axios.get(`${templateBaseUrl}`, addAuthorizationRequestConfig());
     return data;
 }
@@ -46,8 +45,8 @@ const getKeycloakToken = () => {
     if (window && window.entando && window.entando.keycloak && window.entando.keycloak.authenticated) {
         return window.entando.keycloak.token
     } else {
-        // return localStorage.getItem('token');
-        return '';
+        return localStorage.getItem('token');
+        // return '';
     }
 }
 
@@ -59,7 +58,7 @@ const getDefaultOptions = (defaultBearer) => {
         if (defaultBearer === KC_TOKEN_PREFIX) {
             return {
                 headers: {
-                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUxODI0MjExLCJleHAiOjE2NTQ0MTYyMTF9.gTMLvBtF5iUnpMRJeK3UV1Mi62AQRLFfsVqdr31CuYA'}`
+                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUxODMzOTYxLCJleHAiOjE2NTQ0MjU5NjF9.JOpa49ii3d6-bbO8SNmE3oFYpdDEXtLVbQzJCl4_784'}`
                 },
             }
         } else {
