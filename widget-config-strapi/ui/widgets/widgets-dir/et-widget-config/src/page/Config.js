@@ -56,12 +56,12 @@ export default class Config extends Component {
         this.setState({ templateList: templatesList, collectionTypes: templatesList })
     }
 
-    /**
+     /**
      * Navigate to Strapi dashboard/login page in a new tab on browser
      */
-     handleAddNewContent = () => {
-        let strapiDashboardUrl = `${strapiDomain}/admin`;
-        var newWindow = window.open(strapiDashboardUrl, '_blank');
+      handleAddNewContent = () => {
+        let strapiContentManagerUrl = `${strapiDomain}/admin/content-manager`;
+        var newWindow = window.open(strapiContentManagerUrl, '_blank');
         if(newWindow) {
             newWindow.focus();
         }
