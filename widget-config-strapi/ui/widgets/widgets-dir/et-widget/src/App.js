@@ -11,8 +11,8 @@ function App({ name, nameTwo, templateId, contentId }) {
     const [htmlCode, setHtmlCode] = useState(null);
 
     useEffect(async () => {
-        const getTemplate = await getTemplateById(templateId ? templateId : 48);
-        const getContent = await getContentById('banner', 1);
+        const getTemplate = await getTemplateById(templateId);
+        const getContent = await getContentById(name, contentId);
         setTemplateData(getTemplate);
         setContentData(getContent)
 
@@ -47,7 +47,7 @@ function App({ name, nameTwo, templateId, contentId }) {
                     <div dangerouslySetInnerHTML={{
                         __html: htmlCode
                     }}>
-                    </div> : <h1>You Fail</h1>
+                    </div> : <h1>Loading...</h1>
             }
         </>
     );

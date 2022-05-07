@@ -1,4 +1,6 @@
 import React from "react";
+import moment from 'moment';
+import { UNIVERSAL_DATE_FORMAT } from "../helper/Constant";
 
 export class SimpleTable extends React.Component {
 
@@ -47,17 +49,14 @@ export class SimpleTable extends React.Component {
                                         <tr key={item.id}>
                                             <td>{item[Object.keys(item)[1]]}</td>
                                             <td>{`${item.createdBy.firstname} ${item.createdBy.lastname}`}</td>
-                                            <td>{item.updatedAt}</td>
-                                            <td>{item.publishedAt}</td>
+                                            <td>{moment(new Date(item.updatedAt)).format(UNIVERSAL_DATE_FORMAT)}</td>
+                                            <td>{moment(new Date(item.publishedAt)).format(UNIVERSAL_DATE_FORMAT)}</td>
                                             <td>
                                                 <select name="modelId" className="form-control" onChange={this.onChangeTemplateId}>
-                                                    <option value="default">Default
+                                                    <option value="1">Select Template
                                                     </option>
                                                     {this.props.templateList.map((el) => {
-                                                        return <option key={el.id} value={el.id}>{el.templateName}</option>;    
-                                                        // if (el.collectionType.toLowerCase() === this.state.name[0].Type.toLowerCase()) {
-                                                        //     return <option key={el.id} value={el.id}>{el.templateName}</option>;
-                                                        // }
+                                                        return <option key={el.id} value={el.id}>{el.templateName}</option>;
                                                     })}
                                                 </select>
                                             </td>

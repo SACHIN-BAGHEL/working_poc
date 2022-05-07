@@ -23,9 +23,9 @@ export const getTemplateById = async (templateId) => {
  * @param {*} contentId 
  * @returns 
  */
- export const getContentById = async (contentName = 'banner', contentId) => {
+ export const getContentById = async (contentName, contentId) => {
     if (!contentName || !contentId) console.error(contentName, contentId);
-    const url = `${strapiEndPoint}/content-manager/collection-types/api::${'banner'}.${'banner'}/${contentId}`;
+    const url = `${strapiEndPoint}/content-manager/collection-types/api::${contentName}.${contentName}/${contentId}`;
     const { data } = await axios.get(url, addAuthorizationRequestConfig({}, 'EntKcToken'))
 
     return data;

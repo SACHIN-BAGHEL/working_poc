@@ -37,7 +37,7 @@ export const filterContentsByName = async (collectionType, query, searchBy, page
 
 // API to list of templates Spring-Boot API
 export const getTemplate = async (token) => {
-    const data = await axios.get(`${templateBaseUrl}`, addAuthorizationRequestConfig());
+    const data = await axios.get(`${templateBaseUrl}`);
     return data;
 }
 

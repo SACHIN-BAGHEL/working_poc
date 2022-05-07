@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button, Col, Icon, Modal, Tab, Tabs } from 'patternfly-react';
-
 export default class ContentDetailModal extends Component {
     constructor(props) {
         super(props);
@@ -22,6 +21,24 @@ export default class ContentDetailModal extends Component {
             if (createdBy) this.dataToShowOnModal.createdBy = `${firstname} ${lastname}`;
             if (updatedBy) this.dataToShowOnModal.updatedBy = `${updatedFname} ${updatedLname}`;
         }
+    }
+
+    renderElementByType = (key) => {
+        if (this.dataToShowOnModal[key] === null || this.dataToShowOnModal[key] === undefined) return
+        if (typeof this.dataToShowOnModal[key] === 'boolean') {
+            return this.dataToShowOnModal[key] + '';
+        } else if (typeof this.dataToShowOnModal[key] === 'object') {
+            if (this.dataToShowOnModal[key]['ext']) {
+                if (typeof this.dataToShowOnModal[key] === 'object') {
+                    return <img src={process.env.REACT_APP_STRAPI_TARGET_URL + this.dataToShowOnModal[key].formats.thumbnail.url} height="50px" alt={this.dataToShowOnModal[key]['name']} />
+                } else {
+                    // TODO: Multimedia need to handle
+                    return 'Multimedia need to handle'
+                }
+            }
+            return JSON.stringify(this.dataToShowOnModal[key]);
+        }
+        return this.dataToShowOnModal[key];
     }
 
     render() {
@@ -60,9 +77,7 @@ export default class ContentDetailModal extends Component {
                                                     </Col>
                                                     <Col xs={10}>
                                                         {
-                                                            this.dataToShowOnModal[key] && typeof this.dataToShowOnModal[key] === 'object' ?
-                                                                Object.keys(this.dataToShowOnModal[key]).map(el => (typeof this.dataToShowOnModal[key])[el] === 'object' ? '' : (this.dataToShowOnModal[key])[el] + ' | ') :
-                                                                this.dataToShowOnModal[key]
+                                                            this.renderElementByType(key)
                                                         }
                                                     </Col>
                                                 </div>
@@ -71,7 +86,7 @@ export default class ContentDetailModal extends Component {
                                     })}
                                 </Tab>
                                 <Tab eventKey={1} title="Italiano">
-                                    {Object.keys(this.dataToShowOnModal).length > 0 && Object.keys(this.dataToShowOnModal).filter(key => !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt") && !key.match("FName") && !key.match("Image") && !key.match("createdBy") && !key.match("updatedBy")).map((key, i) => {
+                                    {Object.keys(this.dataToShowOnModal).length > 0 && Object.keys(this.dataToShowOnModal).filter(key => ignoreProps(key)).map((key, i) => {
                                         return (
                                             <div key={i} className="row" style={{ marginBottom: "2rem", marginTop: "1rem" }}>
                                                 <div className="col-xs-12">
@@ -79,7 +94,9 @@ export default class ContentDetailModal extends Component {
                                                         <strong>{key.charAt(0).toUpperCase() + key.slice(1)}</strong>
                                                     </Col>
                                                     <Col xs={10}>
-                                                        {this.dataToShowOnModal[key]}
+                                                        {
+                                                            this.renderElementByType(key)
+                                                        }
                                                     </Col>
                                                 </div>
                                             </div>
@@ -102,7 +119,7 @@ export default class ContentDetailModal extends Component {
         );
 
         function ignoreProps(key) {
-            return !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt") && !key.match("Image") && !key.match("createdBy") && !key.match("updatedBy") && !key.match("id");
+            return !key.match("createdAt") && !key.match("updatedAt") && !key.match("publishedAt") && !key.match("createdBy") && !key.match("updatedBy") && !key.match("id");
         }
     }
 }

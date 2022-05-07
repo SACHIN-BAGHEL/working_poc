@@ -4,8 +4,9 @@ import {
 import React, { Component } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import { filterContentsByName, getCollectionTypes, getContents } from '../api/Api';
-import { LASTPAGE, NAME, PAGE, PAGECHANGEVALUE, PAGEINPUT, PAGESIZE, PERPAGEOPTIONS, SEARCH_CONTENT_BY_NAME, SELECT_COLLECTION_TYPE, TOTALITEMS, T_HEADING } from '../helper/Constant';
+import { LASTPAGE, NAME, PAGE, PAGECHANGEVALUE, PAGEINPUT, PAGESIZE, PERPAGEOPTIONS, SEARCH_CONTENT_BY_NAME, SELECT_COLLECTION_TYPE, TOTALITEMS, T_HEADING, UNIVERSAL_DATE_FORMAT } from '../helper/Constant';
 import ContentDetailModal from '../ui/ContentDetailModal';
 
 export default class SingleContentList extends Component {
@@ -58,7 +59,7 @@ export default class SingleContentList extends Component {
   async setCollectionTypeState() {
     const { data: collectionTypeData } = await getCollectionTypes();
     const collectionTypeApiData = this.filterUidByApiPrefix(collectionTypeData);
-    this.setState({ collectionType: collectionTypeApiData.map(el => ({ label: el.info.singularName })) });
+    this.setState({ collectionType: collectionTypeApiData.map(el => ({ label: el.info.displayName, value: el.info.singularName })) });
   }
 
   filterUidByApiPrefix = (collectionTypeData) => {
@@ -76,9 +77,9 @@ export default class SingleContentList extends Component {
   handleCollectionTypeChange = async (collectionType) => {
     const collType = collectionType[0]
     this.setState({ selectedCollectionType: collectionType })
-    if (collType && collType.label) {
-      await this.getContentsByCollectionType(collType.label)
-      this.props.setSelectedContentName(collType.label)
+    if (collType && collType.value) {
+      await this.getContentsByCollectionType(collType.value)
+      this.props.setSelectedContentName(collType.value)
     } else {
       this.props.setSelectedContentName(null);
     }
@@ -134,7 +135,7 @@ export default class SingleContentList extends Component {
     // collectionType, query, searchBy
     if (this.state.searchQuery) {
       const searchResult = await filterContentsByName(
-        this.state.selectedCollectionType[0].label,
+        this.state.selectedCollectionType[0].value,
         this.state.searchQuery, this.state.setSearchBy, PAGE, PAGESIZE
       );
       this.setState({
@@ -250,7 +251,7 @@ export default class SingleContentList extends Component {
                         <tr key={content.id} className="rowCursorPointer">
                           <td width="5%" align="center">
                             <input onClick={() => {
-                              this.props.setContent(content);
+                              this.props.setContent([content]);
                               this.setState({ selectedContent: content })
                             }}
                               type="radio" id={content + content.id} name="content" value={content.id}
@@ -258,8 +259,8 @@ export default class SingleContentList extends Component {
                           </td>
                           <td onClick={() => this.open(content)}>{content[Object.keys(content)[1]]}</td>
                           <td onClick={() => this.open(content)}>{`${content.createdBy.firstname} ${content.createdBy.lastname}`}</td>
-                          <td onClick={() => this.open(content)}>{content.publishedAt}</td>
-                          <td onClick={() => this.open(content)}>{content.updatedAt}</td>
+                          <td onClick={() => this.open(content)}>{moment(new Date(content.publishedAt)).format(UNIVERSAL_DATE_FORMAT)}</td>
+                          <td onClick={() => this.open(content)}>{moment(new Date(content.updatedAt)).format(UNIVERSAL_DATE_FORMAT)}</td>
                         </tr>)
                     })}
                   </tbody>
@@ -290,7 +291,7 @@ export default class SingleContentList extends Component {
               </Col>
               <Col lg={3} className="SingleContentConfigFormBody__addButtons">
                 <Link to="/">
-                  <button className="btn-default btn">Cancel</button>
+                  <button className="btn-default btn" onClick={()=>this.props.setContent([])}>Cancel</button>
                   <button className="btn-primary btn AddContentTypeFormBody__save--btn" disabled={!this.state.selectedContent}>Save</button>
                 </Link>
               </Col>

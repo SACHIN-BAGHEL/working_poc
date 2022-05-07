@@ -19,9 +19,10 @@ class App extends Component {
     }
 
     setContent = (data) => {
-        this.setState({ selectedContent: [data] })
-        this.setState({ selectedContentId: data.id })
-
+        if (data) {
+            this.setState({ selectedContentId: data[0].id })
+        }
+        this.setState({ selectedContent: data })
     }
 
     setSelectedContentName = (contentName) => {
@@ -33,7 +34,6 @@ class App extends Component {
     }
 
     render() {
-        console.log('state', this.state)
         return (
             <>
                 <HashRouter>
