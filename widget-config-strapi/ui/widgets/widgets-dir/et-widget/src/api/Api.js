@@ -13,7 +13,8 @@ export const getTemplate = async (searchby = 'code', searchTerm) => {
  * @returns 
  */
 export const getTemplateById = async (templateId) => {
-    return await axios.get(`${process.env.REACT_APP_PUBLIC_API_URL}/template/${templateId}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_PUBLIC_API_URL}/template/${templateId}`);
+    return data;
 }
 
 /**
@@ -47,7 +48,7 @@ const getDefaultOptions = (defaultBearer) => {
         if (defaultBearer === 'EntKcToken') {
             return {
                 headers: {
-                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUxODMzOTYxLCJleHAiOjE2NTQ0MjU5NjF9.JOpa49ii3d6-bbO8SNmE3oFYpdDEXtLVbQzJCl4_784'}`
+                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUxODQwOTIyLCJleHAiOjE2NTQ0MzI5MjJ9.gs9bDgLlLZe0nFZowHuvK4DmDRLMrPIOpoH_luIc04o'}`
                 },
             }
         } else {
