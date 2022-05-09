@@ -19,10 +19,8 @@ class App extends Component {
     }
 
     setContent = (data) => {
-        if (data) {
-            this.setState({ selectedContentId: data[0].id })
-        }
         this.setState({ selectedContent: data })
+        if (data.length) this.setState({ selectedContentId: data[0].id })
     }
 
     setSelectedContentName = (contentName) => {
