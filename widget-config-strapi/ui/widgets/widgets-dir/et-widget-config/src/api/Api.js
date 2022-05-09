@@ -58,7 +58,7 @@ const getDefaultOptions = (defaultBearer) => {
         if (defaultBearer === KC_TOKEN_PREFIX) {
             return {
                 headers: {
-                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUxODQwOTIyLCJleHAiOjE2NTQ0MzI5MjJ9.gs9bDgLlLZe0nFZowHuvK4DmDRLMrPIOpoH_luIc04o'}`
+                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUyMDczNDg1LCJleHAiOjE2NTQ2NjU0ODV9.kInTfUH5NTauXRK2QCo8L468io5L_r2IJe4xZ614HxU'}`
                 },
             }
         } else {
