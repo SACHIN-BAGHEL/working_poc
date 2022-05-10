@@ -42,11 +42,11 @@ export const getTemplate = async (token) => {
 }
 
 const getKeycloakToken = () => {
+    return '';
     if (window && window.entando && window.entando.keycloak && window.entando.keycloak.authenticated) {
         return window.entando.keycloak.token
     } else {
         return localStorage.getItem('token');
-        // return '';
     }
 }
 

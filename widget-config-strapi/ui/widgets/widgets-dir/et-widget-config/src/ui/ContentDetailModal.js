@@ -29,7 +29,7 @@ export default class ContentDetailModal extends Component {
             return this.dataToShowOnModal[key] + '';
         } else if (Array.isArray(this.dataToShowOnModal[key])) {
             // For MultiMedia
-            if (this.dataToShowOnModal[key][0]['ext']) {
+            if (this.dataToShowOnModal[key] && this.dataToShowOnModal[key][0]['ext']) {
                 return this.dataToShowOnModal[key].map(pic => (
                     <img src={process.env.REACT_APP_STRAPI_API_URL + pic.formats.thumbnail.url} height="50px" width="50px" alt={pic['name']} />
                 ))
