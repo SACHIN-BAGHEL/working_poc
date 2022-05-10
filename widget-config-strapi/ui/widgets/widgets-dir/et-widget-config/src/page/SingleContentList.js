@@ -40,7 +40,7 @@ export default class SingleContentList extends Component {
   componentDidUpdate = async (prevProps, prevState) => {
     if (prevProps.selectedCollectionType !== this.props.selectedCollectionType ||
       prevState.pageSize !== this.state.pageSize) {
-      await this.getContentsByCollectionType(this.state.selectedCollectionType[0].label, this.state.page, this.state.pageSize);
+      await this.getContentsByCollectionType(this.state.selectedCollectionType[0].value, this.state.page, this.state.pageSize);
 
       // await this.getTemplates(this.props.selectedCollectionType, true).then(res => {
       //   if (this.state.contents.length) {
@@ -52,7 +52,7 @@ export default class SingleContentList extends Component {
     }
     if (prevState.page !== this.state.page) {
       this.setState({ selectedContent: null });
-      await this.getContentsByCollectionType(this.state.selectedCollectionType[0].label, this.state.page, this.state.pageSize);
+      await this.getContentsByCollectionType(this.state.selectedCollectionType[0].value, this.state.page, this.state.pageSize);
     }
   }
 
