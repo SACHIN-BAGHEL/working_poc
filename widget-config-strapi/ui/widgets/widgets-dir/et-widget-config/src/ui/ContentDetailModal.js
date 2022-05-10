@@ -27,13 +27,20 @@ export default class ContentDetailModal extends Component {
         if (this.dataToShowOnModal[key] === null || this.dataToShowOnModal[key] === undefined) return
         if (typeof this.dataToShowOnModal[key] === 'boolean') {
             return this.dataToShowOnModal[key] + '';
+        } else if (Array.isArray(this.dataToShowOnModal[key])) {
+            // For MultiMedia
+            if (this.dataToShowOnModal[key][0]['ext']) {
+                return this.dataToShowOnModal[key].map(pic => (
+                    <img src={process.env.REACT_APP_STRAPI_API_URL + pic.formats.thumbnail.url} height="50px" width="50px" alt={pic['name']} />
+                ))
+            } else {
+                <b>Not Handle Please Check</b>
+            }
         } else if (typeof this.dataToShowOnModal[key] === 'object') {
+            // For SingleMedia
             if (this.dataToShowOnModal[key]['ext']) {
                 if (typeof this.dataToShowOnModal[key] === 'object') {
-                    return <img src={process.env.REACT_APP_STRAPI_TARGET_URL + this.dataToShowOnModal[key].formats.thumbnail.url} height="50px" alt={this.dataToShowOnModal[key]['name']} />
-                } else {
-                    // TODO: Multimedia need to handle
-                    return 'Multimedia need to handle'
+                    return <img src={process.env.REACT_APP_STRAPI_API_URL + this.dataToShowOnModal[key].formats.thumbnail.url} width="50px" height="50px" alt={this.dataToShowOnModal[key]['name']} />
                 }
             }
             return JSON.stringify(this.dataToShowOnModal[key]);
