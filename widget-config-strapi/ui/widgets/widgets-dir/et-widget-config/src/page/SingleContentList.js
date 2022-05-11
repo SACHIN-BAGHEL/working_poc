@@ -15,7 +15,7 @@ export default class SingleContentList extends Component {
     super(props);
     this.state = {
       page: PAGE,
-      currPageWillUpdating: 1,
+      currPageWillUpdating: PAGE,
       pageSize: PAGESIZE,
       totalItems: TOTALITEMS,
       lastPage: LASTPAGE,
@@ -40,15 +40,11 @@ export default class SingleContentList extends Component {
   componentDidUpdate = async (prevProps, prevState) => {
     if (prevProps.selectedCollectionType !== this.props.selectedCollectionType ||
       prevState.pageSize !== this.state.pageSize) {
-      await this.getContentsByCollectionType(this.state.selectedCollectionType[0].value, this.state.page, this.state.pageSize);
-
-      // await this.getTemplates(this.props.selectedCollectionType, true).then(res => {
-      //   if (this.state.contents.length) {
-      //     this.setState({ currPageWillUpdating: PAGE })
-      //   } else {
-      //     this.setState({ currPageWillUpdating: 0 })
-      //   }
-      // });
+      this.setState({ page: PAGE, pageInput: PAGE, currPageWillUpdating: PAGE  },
+        async () => {
+          await this.getContentsByCollectionType(this.state.selectedCollectionType[0].value, this.state.page, this.state.pageSize);
+        }
+      )
     }
     if (prevState.page !== this.state.page) {
       this.setState({ selectedContent: null });
@@ -159,9 +155,15 @@ export default class SingleContentList extends Component {
     this.setState({pageSize})
   }
 
-  onPageInput = (pageInput) => {
-    console.log(pageInput)
+  onPageInput = e => {
+    this.setState({ currPageWillUpdating: e.target.value })
   }
+
+  onSubmit = () => {
+    if (+this.state.currPageWillUpdating && this.state.currPageWillUpdating <= this.state.lastPage) {
+      this.setState({ page: +this.state.currPageWillUpdating })
+    }
+  };
 
   render() {
     const pagination = {
