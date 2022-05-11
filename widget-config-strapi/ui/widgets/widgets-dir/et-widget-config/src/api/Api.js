@@ -1,45 +1,83 @@
 import axios from 'axios';
-const domain = 'http://localhost:1337'
+import { KC_TOKEN_PREFIX, PAGE, PAGESIZE } from '../helper/Constant';
+const domain = `${process.env.REACT_APP_STRAPI_API_URL}`;
+const templateBaseUrl = `${process.env.REACT_APP_PUBLIC_API_URL}/template/`;
+const rootAdminEndPoint = `${domain}/content-manager/collection-types/api::`;
 
 export const postLoginAdmin = async (data) => {
     return axios.post(`${domain}/admin/login`, data);
 }
 
 // GET Collection Type
-export const getCollectionTypes = async (token) => {
-    token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUwOTY1ODU1LCJleHAiOjE2NTM1NTc4NTV9.JAwQ2tS16tJsyo8a8WKNA7nXGLRsOCDJeVXBHs-MwL8'
-    const data = await axios.get(`http://localhost:1337/content-manager/content-types`, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
+export const getCollectionTypes = async () => {
+    const { data } = await axios.get(`${domain}/content-manager/content-types`, addAuthorizationRequestConfig({}, KC_TOKEN_PREFIX));
     return data;
 }
 
-export const getContents = async (collectionType) => {
-    let url = 'http://localhost:1337/api/' + collectionType + '?populate=Image';
-    const data = await axios.get(url);
+export const getContents = async (collectionType, page = PAGE, pageSize = PAGESIZE) => {
+    let url = `${rootAdminEndPoint}${collectionType}.${collectionType}?page=${page}&pageSize=${pageSize}`;
+    const { data } = await axios.get(url, addAuthorizationRequestConfig({}, KC_TOKEN_PREFIX));
     return data;
 }
 
 export const fetchContents = async (collectionType) => {
-    console.log("fetchContents", collectionType)
     // const url = `${domain}/api/${collectionType}`;
     return await getContents(collectionType);
 }
 
-// FILTER API
-export const filterContentsByName = async (collectionType, contentName) => {
-    if (!collectionType || !contentName) {
-        throw new Error('collectionType or contentName is missing');
+export const filterContentsByName = async (collectionType, query, searchBy, page = PAGE, pageSize = PAGESIZE) => {
+    if (!collectionType) {
+        throw new Error('collectionType is missing');
     }
-
-    let url = `${domain}/api/${collectionType}?filters[Title][$containsi]=${contentName}`
-
-    return await axios.get(url)
+    const url = `${rootAdminEndPoint}${collectionType}.${collectionType}?filters[${searchBy}][$containsi]=${query}&page=${page}&pageSize=${pageSize}`
+    const { data } = await axios.get(url, addAuthorizationRequestConfig({}, KC_TOKEN_PREFIX))
+    return data;
 }
 
-// API GET COLLECTION TYPE FROM TEMPLATES
+
+// API to list of templates Spring-Boot API
 export const getTemplate = async (token) => {
-    return await axios.get(`http://localhost:8082/api/getcollectiontype`);
+    const data = await axios.get(`${templateBaseUrl}`);
+    return data;
+}
+
+const getKeycloakToken = () => {
+    return '';
+    if (window && window.entando && window.entando.keycloak && window.entando.keycloak.authenticated) {
+        return window.entando.keycloak.token
+    } else {
+        return localStorage.getItem('token');
+    }
+}
+
+const getDefaultOptions = (defaultBearer) => {
+    const token = getKeycloakToken()
+    console.log('ET-Widget-Config', token);
+    if (!token) {
+        //Below if condition is to run the strapi API in local
+        if (defaultBearer === KC_TOKEN_PREFIX) {
+            return {
+                headers: {
+                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUyMDczNDg1LCJleHAiOjE2NTQ2NjU0ODV9.kInTfUH5NTauXRK2QCo8L468io5L_r2IJe4xZ614HxU'}`
+                },
+            }
+        } else {
+            return {}
+        }
+    }
+    // logic to add token for both strapi and MS api
+    return {
+        headers: {
+            Authorization: `${defaultBearer} ${token}`,
+        },
+    }
+}
+
+// Get authorization tokens
+export const addAuthorizationRequestConfig = (config = {}, defaultBearer = 'Bearer') => {
+    let defaultOptions = getDefaultOptions(defaultBearer);
+    return {
+        ...config,
+        ...defaultOptions
+    }
 }

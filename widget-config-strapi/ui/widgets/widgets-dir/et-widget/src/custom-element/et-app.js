@@ -6,7 +6,8 @@ const ATTRIBUTES = {
     name: 'name',
     nameTwo: 'nameTwo',
     selectedTemplateId: 'selectedTemplateId',
-    selectedContentId: 'selectedContentId'
+    selectedContentId: 'selectedContentId',
+    selectedContentName: 'selectedContentName',
 };
 
 class WidgetElement extends HTMLElement {
@@ -35,7 +36,11 @@ class WidgetElement extends HTMLElement {
         const nameTwo = this.getAttribute(ATTRIBUTES.nameTwo);
         const templateId = this.getAttribute(ATTRIBUTES.selectedTemplateId);
         const contentId = this.getAttribute(ATTRIBUTES.selectedContentId);
-        ReactDOM.render(<App name={name} nameTwo={nameTwo} templateId={templateId} contentId={contentId} />, this.mountPoint);
+        const contentName = this.getAttribute(ATTRIBUTES.selectedContentName);
+        ReactDOM.render(
+            <App name={name} nameTwo={nameTwo} templateId={templateId} contentId={contentId} contentName={contentName} />,
+            this.mountPoint
+        );
     }
 }
 

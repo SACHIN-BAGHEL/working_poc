@@ -1,16 +1,73 @@
 import axios from 'axios';
 
-// http://localhost:8082/api/templates/searchby/code/1002
-
-const apiEndPoint = 'http://localhost:8082/api/templates/searchby/';
-const strapiEndPoint = 'http://localhost:1337/api/';
+const strapiEndPoint = `${process.env.REACT_APP_STRAPI_API_URL}`;
+const apiEndPoint = `${process.env.REACT_APP_PUBLIC_API_URL}/template/searchby/`;
 
 export const getTemplate = async (searchby = 'code', searchTerm) => {
-    console.log("GETTEMPLATE 1");
     return await axios.get(`${apiEndPoint}${searchby}/${searchTerm}`)
 }
 
-export const getContentById = async (contentType = 'banners', contentId) => {
-    console.log("GET CONTENT API FOR ", contentType);
-    return await axios.get(`${strapiEndPoint}${contentType}?filters[id][$eq]=${contentId}`)
+/**
+ * getTemplateById Search Template By Id.
+ * @param {*} templateId : TemplateId.
+ * @returns 
+ */
+export const getTemplateById = async (templateId) => {
+    const { data } = await axios.get(`${process.env.REACT_APP_PUBLIC_API_URL}/template/${templateId}`);
+    return data;
+}
+
+/**
+ * getContentById Search Content By Id.
+ * @param {*} contentType 
+ * @param {*} contentId 
+ * @returns 
+ */
+ export const getContentById = async (contentName, contentId) => {
+    if (!contentName || !contentId) console.error(contentName, contentId);
+    const url = `${strapiEndPoint}/content-manager/collection-types/api::${contentName}.${contentName}/${contentId}`;
+    const { data } = await axios.get(url, addAuthorizationRequestConfig({}, 'EntKcToken'))
+
+    return data;
+}
+
+const getKeycloakToken = () => {
+    // return '';
+    if (window && window.entando && window.entando.keycloak && window.entando.keycloak.authenticated) {
+        return window.entando.keycloak.token
+    } else {
+        return localStorage.getItem('token');
+    }
+}
+
+const getDefaultOptions = (defaultBearer) => {
+    const token = getKeycloakToken()
+    console.log('ET-Widget',token);
+    if (!token) {
+        //Below if condition is to run the strapi API in local
+        if (defaultBearer === 'EntKcToken') {
+            return {
+                headers: {
+                    Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUyMDczNDg1LCJleHAiOjE2NTQ2NjU0ODV9.kInTfUH5NTauXRK2QCo8L468io5L_r2IJe4xZ614HxU'}`
+                },
+            }
+        } else {
+            return {}
+        }
+    }
+    // logic to add token for both strapi and MS api
+    return {
+        headers: {
+            Authorization: `${defaultBearer} ${token}`,
+        },
+    }
+}
+
+// Get authorization tokens
+export const addAuthorizationRequestConfig = (config = {}, defaultBearer = 'Bearer') => {
+    let defaultOptions = getDefaultOptions(defaultBearer);
+    return {
+        ...config,
+        ...defaultOptions
+    }
 }

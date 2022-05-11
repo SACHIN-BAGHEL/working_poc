@@ -14,6 +14,7 @@
 .btn-primary:hover:active {
   background-color: #032a73 !important;
 }
+
 .SingleContentConfigFormBody__addButtons {
   text-align: right;
 }
@@ -29,6 +30,7 @@
 .ContentsFilterModal.modal-dialog {
   width: 80% !important;
 }
+
 /* .modal-dialog {
   min-width: 75vw;
 } */
@@ -36,3 +38,53 @@
 /* .modal-dialog{
   width: 80% !important;
 } */
+
+.SingleContentConfigForm {
+  background-color: white !important;
+}
+
+.SingleContentConfigFormBody__widgetTitle {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 13px;
+}
+
+.SingleContentConfigFormBody__addButtons {
+  text-align: right;
+}
+
+.SingleContentConfigFormBody__contentTitle {
+  margin: 0;
+}
+
+.AddContentTypeFormBody__save--btn {
+  margin-left: 5px;
+}
+
+/* Single Page Custome Classes */
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.rowCursorPointer {
+  cursor: pointer;
+}
+
+/* Show-Detail-Attribute-Modal CSS START */
+.modal-dialog{width:80%;}
+/* Show-Detail-Attribute-Modal CSS END */
+
+.SectionTitle__emphasize-caption, .SectionTitle__non-collapsable {
+    margin-bottom: 30px;
+    padding-bottom: 0;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 18px;
+}
+.SectionTitle {
+    width: 100%;
+    padding: 20px 0;
+    outline: none;
+    font-size: 16px;
+    line-height: inherit;
+    text-transform: capitalize;
+}
