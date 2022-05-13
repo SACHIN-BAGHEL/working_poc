@@ -173,3 +173,6 @@ export const UNIVERSAL_DATE_FORMAT = "YYYY-MM-DD HH:mm:ss"
     ".heic",
     ".heif"
 ];
+
+export const STRAPI_IMAGE_EXTENSIONS = ['.JPEG', '.PNG', '.GIF', '.SVG', '.TIFF', '.ICO', '.DVU'];
+export const STRAPI_IMAGE_URL_KEY = 'url';
