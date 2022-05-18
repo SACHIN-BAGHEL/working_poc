@@ -1,5 +1,5 @@
-code: entando-mf-conf-template
-description: sach mf with configuration
+code: strapi-single-content-widget
+description: Single content mf with configuration
 components:
   widgets:
     - ui/widgets/widgets-dir/et-widget/et-widget-descriptor.yaml

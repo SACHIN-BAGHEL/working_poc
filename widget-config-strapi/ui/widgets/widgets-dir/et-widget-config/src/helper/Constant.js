@@ -176,3 +176,6 @@ export const UNIVERSAL_DATE_FORMAT = "YYYY-MM-DD HH:mm:ss"
 
 export const STRAPI_IMAGE_EXTENSIONS = ['.JPEG', '.PNG', '.GIF', '.SVG', '.TIFF', '.ICO', '.DVU'];
 export const STRAPI_IMAGE_URL_KEY = 'url';
+export const STRAPI_IMAGE_HEIGHT = '50px';
+export const STRAPI_IMAGE_WIDTH = '50px';
+export const STRAPI_EXCLUDE_KEYS =  ["createdAt", "updatedAt", "publishedAt", "createdBy", "updatedBy", "id"]
